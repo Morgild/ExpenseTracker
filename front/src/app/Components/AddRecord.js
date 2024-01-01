@@ -1,7 +1,39 @@
-import { useText } from "./AuthProvider";
+import { useText } from "./provider/AuthProvider";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FaCirclePlus } from "react-icons/fa6";
 import { AddCategory } from "./AddCategory";
+
+import { MdHomeFilled } from "react-icons/md";
+import { TiHome } from "react-icons/ti";
+import { RiContactsBook2Fill } from "react-icons/ri";
+import { MdContactMail } from "react-icons/md";
+import { PiLadderFill } from "react-icons/pi";
+import { PiIntersectSquareFill } from "react-icons/pi";
+import { FaImage } from "react-icons/fa6";
+import { FaMagnifyingGlassPlus } from "react-icons/fa6";
+import { FaMicrophone } from "react-icons/fa6";
+import { SiMicrosoftexcel } from "react-icons/si";
+import { PiNotepadFill } from "react-icons/pi";
+import { ImMenu } from "react-icons/im";
+import { PiLeafFill } from "react-icons/pi";
+import { PiNumberFiveFill } from "react-icons/pi";
+import { PiNumberCircleSevenFill } from "react-icons/pi";
+import { PiRoadHorizonFill } from "react-icons/pi";
+import { GiSandsOfTime } from "react-icons/gi";
+import { PiAnchorSimpleBold } from "react-icons/pi";
+import { PiTriangleFill } from "react-icons/pi";
+import { PiIntersectBold } from "react-icons/pi";
+import { BiLogoFlickrSquare } from "react-icons/bi";
+import { FaBaseballBall } from "react-icons/fa";
+import { AiFillQuestionCircle } from "react-icons/ai";
+import { TbSquareRoundedLetterA } from "react-icons/tb";
+import { BsWatch } from "react-icons/bs";
+import { PiGlobeSimpleFill } from "react-icons/pi";
+import { TbLemon } from "react-icons/tb";
+import { FaPeace } from "react-icons/fa";
+import { PiToiletPaperFill } from "react-icons/pi";
+import { FaPencilAlt } from "react-icons/fa";
+
 
 export function AddRecord() {
   const {
@@ -11,12 +43,15 @@ export function AddRecord() {
     changeExpense,
     addCat,
     setAddCat,
+    categories,
+    setCategories,
+    getCategories,
     dropCategory,
     setDropCategory,
     dropDownCategory,
     addNewRecord,
     addNewCategory,
-    setAddNewCategory
+    setAddNewCategory,
   } = useText();
   return (
     <div className="flex justify-center items-center">
@@ -27,13 +62,28 @@ export function AddRecord() {
         className="BACKGROUND fixed z-10 top-0 left-0 h-screen w-screen bg-[#00000080]"
       ></main>
       <form
-      onSubmit={(event)=>{
-        event.preventDefault(),
-        // type, category, amount, date, payee, note
-        console.log(expense?'expense':'income'),
-        console.log(addNewCategory)
-      }}
-      className="WHITE absolute z-20 top-[50%] translate-y-[-50%] bg-white rounded-xl">
+        onSubmit={(event) => {
+          event.preventDefault(),
+          setAddRecord(false),
+        
+            // type, category, amount, date, payee, note
+            addNewRecord(
+              expense ? "expense" : "income",
+              addNewCategory !== "Find or choose category"
+                ? addNewCategory
+                : "Miscellaneous",
+              event.target.amount.value,
+
+              addNewCategory !== "Find or choose category"
+                ? addNewCategory
+                : "Miscellaneous",
+              event.target.date.value,
+              event.target.payee.value,
+              event.target.note.value
+            );
+        }}
+        className="WHITE absolute z-20 top-[50%] translate-y-[-50%] bg-white rounded-xl"
+      >
         <div className="HEADING flex justify-between items-center py-5 px-6 border-b border-[#E2E8F0]">
           <h3 className="text-xl text-[#0F172A] font-semibold">Add Record</h3>
           <img
@@ -48,7 +98,8 @@ export function AddRecord() {
           <div className="LEFT w-full flex flex-col gap-5 py-5 px-4">
             <div className="ExpenseIcome grid grid-cols-2 rounded-[100px] gap-[4px] bg-[#F3F4F6]">
               <button
-                onClick={() => {
+                onClick={(event) => {
+                  event.preventDefault();
                   changeExpense();
                 }}
                 className={`w-full py-2 ${
@@ -60,7 +111,8 @@ export function AddRecord() {
                 Expense
               </button>
               <button
-                onClick={() => {
+                onClick={(event) => {
+                  event.preventDefault();
                   changeExpense();
                 }}
                 className={`w-full py-2 ${
@@ -75,8 +127,10 @@ export function AddRecord() {
             <div className="w-full bg-[#F3F4F6] flex flex-col rounded-lg border border-[#D1D5DB] py-3 px-4">
               <h4 className="text-[#171717] text-base font-normal">Amount</h4>
               <input
-                className="text-[#9CA3AF] text-xl font-normal bg-transparent"
+                className="text-[#9CA3AF] text-black text-xl font-normal bg-transparent"
                 type="text"
+                name="amount"
+                defaultValue={1000}
                 placeholder="$ 000.00"
               />
             </div>
@@ -86,6 +140,7 @@ export function AddRecord() {
                 <p
                   onClick={() => {
                     dropDownCategory();
+                    getCategories();
                   }}
                   className="w-full relative bg-[#F3F4F6] flex flex-col rounded-lg border border-[#D1D5DB] py-3 px-4 text-[#94A3B8]"
                   placeholder="Find or choose category"
@@ -108,7 +163,20 @@ export function AddRecord() {
                       <FaCirclePlus className="w-6 h-6" fill="#0166FF" />
                       <p>Add Category</p>
                     </div>
-                    <div className="p-4" onClick={()=>{alert()}}>test</div>
+                    <div
+                      className=""
+                      onClick={() => {
+                        setDropCategory(false);
+                      }}
+                    >
+                      {Object.keys(categories).map((item,index)=>(
+                        <div key={index} onClick={()=>{setAddNewCategory(categories[item].category)}} className="flex items-center p-4 gap-3 border-b border-[#0000001A] cursor-pointer">
+                          <TiHome/>
+                          {categories[item].icon}
+                          {categories[item].category}</div>
+                      ))}
+      
+                    </div>
                   </div>
                 )}
               </div>
@@ -117,21 +185,26 @@ export function AddRecord() {
               <div>
                 <h4 className="text-[#171717] text-base font-normal">Date</h4>
                 <div className="w-full bg-[#F3F4F6] flex flex-col rounded-lg border border-[#D1D5DB] py-3 px-4">
-                  <input className="bg-transparent" type="date" />
+                  <input className="bg-transparent" type="date" name="date"/>
                 </div>
               </div>
               <div>
                 <h4 className="text-[#171717] text-base font-normal">Time</h4>
-                <select
+                <div
                   className="w-full bg-[#F3F4F6] flex flex-col rounded-lg border border-[#D1D5DB] py-3 px-4"
                   placeholder="Find or choose category"
                 >
-                  <option className="">Time</option>
-                </select>
+                  <input
+                    className="bg-transparent"
+                    placeholder="Time"
+                    name="time"
+                    type="time"
+                  />
+                </div>
               </div>
             </div>
             <button
-            type="submit"
+              type="submit"
               className={`w-full py-2  ${
                 expense ? "bg-[#0166FF]" : "bg-[#16A34A]"
               } rounded-[20px] text-white font-normal text-base text-[#F9FAFB] mt-3`}
@@ -143,6 +216,7 @@ export function AddRecord() {
             <div className="flex flex-col gap-2">
               <h4 className="text-[#171717] text-base font-normal">Payee</h4>
               <input
+                name="payee"
                 className="w-full bg-[#F3F4F6] flex flex-col rounded-lg border border-[#D1D5DB] py-3 px-4"
                 placeholder="Write here"
               />
@@ -150,6 +224,7 @@ export function AddRecord() {
             <div className="flex flex-col gap-2">
               <h4 className="text-[#171717] text-base font-normal">Note</h4>
               <textarea
+                name="note"
                 className="w-full min-h-[250px] bg-[#F3F4F6] flex flex-col rounded-lg border border-[#D1D5DB] py-3 px-4"
                 placeholder="Write here"
               />

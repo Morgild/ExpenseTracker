@@ -6,13 +6,45 @@ import { useRouter } from "next/navigation";
 import { SingleRecord } from "../Components/SingleRecord";
 import { AddRecord } from "../Components/AddRecord";
 import { AddCategory } from "../Components/AddCategory";
-import { useText } from "../Components/AuthProvider";
+import { useText } from "../Components/provider/AuthProvider";
 import { Loading } from "../Components/Loading";
 import { useEffect } from "react";
+
+import { MdHomeFilled } from "react-icons/md";
+import { TiHome } from "react-icons/ti";
+import { RiContactsBook2Fill } from "react-icons/ri";
+import { MdContactMail } from "react-icons/md";
+import { PiLadderFill } from "react-icons/pi";
+import { PiIntersectSquareFill } from "react-icons/pi";
+import { FaImage } from "react-icons/fa6";
+import { FaMagnifyingGlassPlus } from "react-icons/fa6";
+import { FaMicrophone } from "react-icons/fa6";
+import { SiMicrosoftexcel } from "react-icons/si";
+import { PiNotepadFill } from "react-icons/pi";
+import { ImMenu } from "react-icons/im";
+import { PiLeafFill } from "react-icons/pi";
+import { PiNumberFiveFill } from "react-icons/pi";
+import { PiNumberCircleSevenFill } from "react-icons/pi";
+import { PiRoadHorizonFill } from "react-icons/pi";
+import { GiSandsOfTime } from "react-icons/gi";
+import { PiAnchorSimpleBold } from "react-icons/pi";
+import { PiTriangleFill } from "react-icons/pi";
+import { PiIntersectBold } from "react-icons/pi";
+import { BiLogoFlickrSquare } from "react-icons/bi";
+import { FaBaseballBall } from "react-icons/fa";
+import { AiFillQuestionCircle } from "react-icons/ai";
+import { TbSquareRoundedLetterA } from "react-icons/tb";
+import { BsWatch } from "react-icons/bs";
+import { PiGlobeSimpleFill } from "react-icons/pi";
+import { TbLemon } from "react-icons/tb";
+import { FaPeace } from "react-icons/fa";
+import { PiToiletPaperFill } from "react-icons/pi";
+import { FaPencilAlt } from "react-icons/fa";
 
 export default function Records() {
   const router = useRouter();
   const {
+    isReady,
     addRecord,
     setAddRecord,
     addCat,
@@ -21,10 +53,18 @@ export default function Records() {
     days,
     minusDays,
     plusDays,
-    isLoading,isLoggedIn,
+    isLoading,
+    isLoggedIn,
     profileLog,
-    setProfileLog
+    setProfileLog,
+    categories,
+    setCategories,
+    records,
+    setRecords,
+    filterCategory,
+    setFilterCategory
   } = useText();
+
 
   useEffect(()=>{
     if(!isLoggedIn) router.push("/")
@@ -32,14 +72,19 @@ export default function Records() {
 
     if(isLoading) return <Loading/>
 
+    if(!isReady) return <Loading/>
+
   return (
-    <main  className="relative flex h-screen w-full bg-[#F3F4F6] flex-col">
+    <main className="relative flex h-screen w-full bg-[#F3F4F6] flex-col">
       <HeaderDashboard />
       {addRecord && <AddRecord />}
       {addCat && <AddCategory />}
-      <div onClick={()=>{
-      setProfileLog(false)
-    }} className="w-full gap-6 flex md:px-[120px] px-[40px] py-[32px]">
+      <div
+        onClick={() => {
+          setProfileLog(false);
+        }}
+        className="w-full gap-6 flex md:px-[120px] px-[40px] py-[32px]"
+      >
         <aside className="hidden w-4/12 bg-[#F9FAFB] border border-solid border-[#E5E7EB] md:flex flex-col rounded-xl py-6 px-4 gap-6">
           <div className="flex flex-col gap-6">
             <h2 className="text-2xl text-black font-semibold">Records</h2>
@@ -93,7 +138,9 @@ export default function Records() {
               </p>
             </div>
             <div className="flex w-full flex-col ">
-              <CategoryList categoryName="Food & Drinks" />
+              {Object.keys(categories).map((item, index) => (
+                <CategoryList categoryName={categories[item].category} />
+              ))}
             </div>
             <div
               onClick={() => {
@@ -135,11 +182,17 @@ export default function Records() {
         <section className="w-full flex flex-col">
           <div className="flex justify-between items-center mb-6">
             <div className="flex gap-4 items-center">
-              <span onClick={minusDays} className="w-8 h-8 flex items-center justify-center bg-[#E5E7EB] rounded-[8px] p-[6px] font-semibold cursor-pointer">
+              <span
+                onClick={minusDays}
+                className="w-8 h-8 flex items-center justify-center bg-[#E5E7EB] rounded-[8px] p-[6px] font-semibold cursor-pointer"
+              >
                 <img src="/left_arrow.png" />
               </span>
               <p>Last {days} Days</p>
-              <span onClick={plusDays} className="w-8 h-8 rotate-180 flex items-center justify-center bg-[#E5E7EB] rounded-[8px] p-[6px] font-semibold cursor-pointer">
+              <span
+                onClick={plusDays}
+                className="w-8 h-8 rotate-180 flex items-center justify-center bg-[#E5E7EB] rounded-[8px] p-[6px] font-semibold cursor-pointer"
+              >
                 <img src="/left_arrow.png" />
               </span>
             </div>
@@ -175,6 +228,9 @@ export default function Records() {
             </p>
           </div>
           <div className="flex flex-col gap-3 mt-[24px]">
+          {Object.keys(records).map((item, index) => (
+                <SingleRecord category={records[item].category} amount={records[item].amount} />
+              ))}
             <SingleRecord />
           </div>
         </section>

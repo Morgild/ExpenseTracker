@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useText } from "./Components/AuthProvider";
+import { useText } from "./Components/provider/AuthProvider";
 import { Loading } from "./Components/Loading";
 
 export default function Home() {

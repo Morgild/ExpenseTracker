@@ -1,4 +1,4 @@
-import { useText } from "./AuthProvider";
+import { useText } from "./provider/AuthProvider";
 import { MdHomeFilled } from "react-icons/md";
 import { TiHome } from "react-icons/ti";
 import { RiContactsBook2Fill } from "react-icons/ri";
@@ -31,7 +31,7 @@ import { PiToiletPaperFill } from "react-icons/pi";
 import { FaPencilAlt } from "react-icons/fa";
 
 const newIcons = [
-  <MdHomeFilled/>,
+  <MdHomeFilled />,
   <TiHome />,
   <RiContactsBook2Fill />,
   <MdContactMail />,
@@ -82,6 +82,7 @@ export function AddCategory() {
     iconChoose,
     iconColor,
     setIconColor,
+    newCategory,
   } = useText();
   return (
     <div className="flex justify-center items-center">
@@ -105,8 +106,12 @@ export function AddCategory() {
         <form
           onSubmit={(event) => {
             event.preventDefault(),
-            setAddCat(false), console.log(event.target.newCategory.value),
-            console.log(iconColor, icon);
+              setAddCat(false),
+              newCategory(
+                `<${icon.type.name}/>`,
+                iconColor,
+                event.target.newCategory.value
+              );
           }}
           className="flex flex-col p-6"
         >
@@ -119,7 +124,7 @@ export function AddCategory() {
                   iconChoose();
                 }}
                 className={`flex items-center justify-center`}
-                style={{color:iconColor}}
+                style={{ color: iconColor }}
               >
                 {icon}
               </figure>
@@ -153,7 +158,7 @@ export function AddCategory() {
                           setIconColor(item);
                         }}
                         className={`w-6 h-6 rounded-full cursor-pointer`}
-                        style={{backgroundColor:item}}
+                        style={{ backgroundColor: item }}
                       ></figure>
                     ))}
                   </div>

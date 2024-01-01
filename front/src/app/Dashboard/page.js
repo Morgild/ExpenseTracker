@@ -1,14 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import { HeaderDashboard } from "../Components/HeaderDashboard";
-import { useText } from "../Components/AuthProvider";
+import { useText } from "../Components/provider/AuthProvider";
 import { AddRecord } from "../Components/AddRecord";
 import { AddCategory } from "../Components/AddCategory";
 import { Loading } from "../Components/Loading";
 import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
-  const {addRecord, setAddRecord, addCat,setAddCat, setExpense,isLoggedIn,setIsLoggedIn,isLoading,profileLog,setProfileLog}=useText();
+  const {addRecord, setAddRecord, addCat,setAddCat, setExpense,isLoggedIn,setIsLoggedIn,isLoading,isReady,profileLog,setProfileLog}=useText();
   const router=useRouter();
 
   useEffect(()=>{
@@ -16,6 +16,8 @@ export default function Dashboard() {
   },[isLoggedIn])
 
     if(isLoading) return <Loading/>
+
+    if(!isReady) return <Loading/>
 
   return (
     <main  className="flex h-screen w-full bg-[#F3F4F6] flex-col">

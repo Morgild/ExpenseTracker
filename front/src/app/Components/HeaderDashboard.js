@@ -1,8 +1,7 @@
 "use client";
-import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { useText } from "./AuthProvider";
-import { useState } from "react";
+import { useText } from "./provider/AuthProvider";
+
 
 export function HeaderDashboard() {
   const router = useRouter();

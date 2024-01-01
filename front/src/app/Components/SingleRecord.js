@@ -1,4 +1,6 @@
-export function SingleRecord() {
+
+
+export function SingleRecord(props) {
   return (
     <div className="flex bg-white px-6 py-3 justify-between items-center border border-solid border-[#E5E7EB] rounded-lg">
       <div className="flex gap-4 items-center">
@@ -12,12 +14,12 @@ export function SingleRecord() {
         <div className="flex items-center justify-center rounded-full bg-[#0166FF] w-10 h-10"><img className="w-5 h-5" src="/categoryIcon.png" /></div>
         <div className="flex flex-col">
           <label className="text-base text-black">
-            Lending & Renting
+            {props.category}
           </label>
           <p className="text-xs font-normal text-[#6B7280]">14:00</p>
         </div>
       </div>
-      <p className="font-semibold text-[#23E01F] text-base">Value</p>
+      <p className="font-semibold text-[#23E01F] text-base">{props.amount}</p>
     </div>
   );
 }

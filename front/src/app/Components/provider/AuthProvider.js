@@ -1,10 +1,10 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { MdHomeFilled } from "react-icons/md";
-import { api } from "../common/axios";
+import { api } from "@/app/common/axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { Loading } from "./Loading";
+import { Loading } from "../Loading";
 
 const TextContext = createContext();
 
@@ -15,15 +15,21 @@ export function AuthProvider({ children }) {
   const [addRecord, setAddRecord] = useState(false);
   const [expense, setExpense] = useState(true);
   const [addCat, setAddCat] = useState(false);
-  const [isDbActive, setIsDbActive] = useState('');
+  const [isDbActive, setIsDbActive] = useState("");
   const [step, setStep] = useState(100);
   const [showIcons, setShowIcons] = useState(false);
   const [icon, setIcon] = useState(<MdHomeFilled />);
   const [iconColor, setIconColor] = useState("#000000");
   const [dropCategory, setDropCategory] = useState(false);
   const [days, setDays] = useState(90);
-  const [profileLog,setProfileLog]=useState(false);
-  const [addNewCategory, setAddNewCategory]=useState('Find or choose category');
+  const [profileLog, setProfileLog] = useState(false);
+  const [addNewCategory, setAddNewCategory] = useState(
+    "Find or choose category"
+  );
+  const [categories, setCategories] = useState([]);
+  const [records, setRecords] = useState([]);
+  const [filterCategory, setFilterCategory] = useState(false);
+
   const router = useRouter();
 
   // Add days function
@@ -64,9 +70,9 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const handleProfileLog=()=>{
+  const handleProfileLog = () => {
     setProfileLog((prev) => !prev);
-  }
+  };
 
   // Add record window dropdown category list show toggle function
   const dropDownCategory = () => {
@@ -151,24 +157,95 @@ export function AuthProvider({ children }) {
   };
 
   //Add record
-  const addNewRecord= async(type, category, amount, date, payee, note)=>{
+  const addNewRecord = async (type, category, amount, date, payee, note) => {
     try {
-      const {data} = await api.post("/records", {type, category, amount, date, payee, note});
+      const token = localStorage.getItem("token");
+      console.log(token);
+      const { data } = await api.post(
+        "/records",
+        { type, category, amount, date, payee, note },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
       toast.info(data.message, {
         position: "top-center",
-        autoClose: true,
-        hideProgressBar: false,
+        autoClose: 2000,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: "light",
       });
+    } catch (err) {
+      console.log(err), "FFF";
     }
-    catch(err) {
-      console.log(err),"FFF";
+  };
+
+  //Add new category
+  const newCategory = async (icon, color, category) => {
+    try {
+      const token = localStorage.getItem("token");
+      const { data } = await api.post(
+        "/category",
+        { icon, color, category },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      toast.info(data.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (err) {
+      console.log(err), "FFF";
     }
-  }
+  };
+
+  // get Catgetories
+  const getCategories = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const { data } = await api.get("/category", {
+        headers: {
+          Authorization: token,
+        },
+      });
+      console.log(data)
+      setCategories(data);
+    } catch (err) {
+      console.log(err), "FFF";
+    }
+  };
+
+    // get Records
+    const getRecords = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const { data } = await api.get("/records", {
+          headers: {
+            Authorization: token,
+          },
+        });
+        setRecords(data);
+      } catch (err) {
+        console.log(err), "FFF";
+      }
+    };
+
+
+
 
   // Sign-Out
   const signOut = () => {
@@ -182,12 +259,14 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
+      getCategories();
+      getRecords();
     }
     setIsReady(true);
   }, []);
 
   return (
-    <div lang="en" >
+    <div lang="en">
       <div>
         <TextContext.Provider
           value={{
@@ -202,6 +281,13 @@ export function AuthProvider({ children }) {
             signUp,
             signOut,
             addNewRecord,
+            newCategory,
+            getCategories,
+            categories,
+            setCategories,
+            records,
+            setRecords,
+            getRecords,
             addRecord,
             setAddRecord,
             expense,
@@ -230,7 +316,9 @@ export function AuthProvider({ children }) {
             setProfileLog,
             handleProfileLog,
             addNewCategory,
-            setAddNewCategory
+            setAddNewCategory,
+            filterCategory,
+            setFilterCategory
           }}
         >
           {isReady ? children : <Loading />}

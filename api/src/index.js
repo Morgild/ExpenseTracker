@@ -24,7 +24,7 @@ app.post("/sign-up", async (req, res) => {
   const users = JSON.parse(usersRaw);
   const user = users.find((user) => user.email === email);
   if (user) {
-    return res.json('User exists')  
+    return res.json("User exists");
     //    res.status(409).json({
     //   message: "User already exists",
     // });
@@ -59,13 +59,11 @@ app.post("/sign-in", async (req, res) => {
 });
 
 app.post("/records", async (req, res) => {
-  const {authorization} = req.headers;
-  // return res.json(authorization)
+  const { authorization } = req.headers;
   if (!authorization) {
     return res.status(401).json({ message: "Unauthorized1" });
   }
-  // const payload = jwt.verify(authorization, "secret-key")
-  // return res.json(payload.email)
+
   try {
     const payload = jwt.verify(authorization, "secret-key");
     const { email } = payload;
@@ -73,7 +71,7 @@ app.post("/records", async (req, res) => {
     const filePath = "src/data/records.json";
     const recordsRaw = await fs.readFile(filePath, "utf-8");
     const records = JSON.parse(recordsRaw);
-     
+
     records.push({
       type,
       category,
@@ -95,10 +93,60 @@ app.post("/records", async (req, res) => {
 });
 
 app.get("/records", async (req, res) => {
-    const filePath = "src/data/records.json";
-    const recordsRaw = await fs.readFile(filePath, "utf-8");
-    const records = JSON.parse(recordsRaw);
-    res.json(records)
+  const filePath = "src/data/records.json";
+  const recordsRaw = await fs.readFile(filePath, "utf-8");
+  const records = JSON.parse(recordsRaw);
+  res.json(records);
+});
+
+app.post("/category", async (req, res) => {
+  const { authorization } = req.headers;
+  if (!authorization) {
+    return res.status(401).json({ message: "Unauthorized1" });
+  }
+
+  const { category, icon, color } = req.body;
+  const filePath = "src/data/categories.json";
+  const categoriesRaw = await fs.readFile(filePath, "utf-8");
+  const categories = JSON.parse(categoriesRaw);
+  const isCategoryExist = categories.find((cat) => cat.category === category);
+  if (isCategoryExist) {
+    return res.json({ message: `Category already exists` });
+  }
+  //  return res.json(req.body)
+  try {
+    const payload = jwt.verify(authorization, "secret-key");
+    const { email } = payload;
+    const filePath = "src/data/categories.json";
+    const categoriesRaw = await fs.readFile(filePath, "utf-8");
+    const categories = JSON.parse(categoriesRaw);
+
+    categories.push({
+      category,
+      icon,
+      color,
+      userEmail: email,
+    });
+
+    await fs.writeFile(filePath, JSON.stringify(categories));
+
+    res.json({
+      message: "new category created",
+    });
+  } catch (error) {
+    // return res.status(401).json({ message: "Unauthorized2" });
+  }
+});
+
+app.get("/category", async (req, res) => {
+  const { authorization } = req.headers;
+  if (!authorization) {
+    return res.status(401).json({ message: "Unauthorized1" });
+  }
+  const filePath = "src/data/categories.json";
+  const categoriesRaw = await fs.readFile(filePath, "utf-8");
+  const categories = JSON.parse(categoriesRaw);
+  res.json(categories);
 });
 
 const port = 3001;
