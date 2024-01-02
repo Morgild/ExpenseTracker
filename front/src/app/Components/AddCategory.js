@@ -1,66 +1,69 @@
 import { useText } from "./provider/AuthProvider";
-import { MdHomeFilled } from "react-icons/md";
-import { TiHome } from "react-icons/ti";
-import { RiContactsBook2Fill } from "react-icons/ri";
-import { MdContactMail } from "react-icons/md";
-import { PiLadderFill } from "react-icons/pi";
-import { PiIntersectSquareFill } from "react-icons/pi";
-import { FaImage } from "react-icons/fa6";
-import { FaMagnifyingGlassPlus } from "react-icons/fa6";
+import {
+  Fa42Group,
+  FaAccessibleIcon,
+  FaAddressBook,
+  FaBottleWater,
+  FaCakeCandles,
+  FaCarBattery,
+  FaEarListen,
+  FaFingerprint,
+  FaHouse,
+  FaImage,
+  FaVolumeHigh,
+} from "react-icons/fa6";
 import { FaMicrophone } from "react-icons/fa6";
-import { SiMicrosoftexcel } from "react-icons/si";
-import { PiNotepadFill } from "react-icons/pi";
-import { ImMenu } from "react-icons/im";
-import { PiLeafFill } from "react-icons/pi";
-import { PiNumberFiveFill } from "react-icons/pi";
-import { PiNumberCircleSevenFill } from "react-icons/pi";
-import { PiRoadHorizonFill } from "react-icons/pi";
-import { GiSandsOfTime } from "react-icons/gi";
-import { PiAnchorSimpleBold } from "react-icons/pi";
-import { PiTriangleFill } from "react-icons/pi";
-import { PiIntersectBold } from "react-icons/pi";
-import { BiLogoFlickrSquare } from "react-icons/bi";
-import { FaBaseballBall } from "react-icons/fa";
-import { AiFillQuestionCircle } from "react-icons/ai";
-import { TbSquareRoundedLetterA } from "react-icons/tb";
-import { BsWatch } from "react-icons/bs";
-import { PiGlobeSimpleFill } from "react-icons/pi";
-import { TbLemon } from "react-icons/tb";
+import {
+  FaAddressCard,
+  FaAirbnb,
+  FaApple,
+  FaBars,
+  FaBaseballBall,
+  FaBook,
+  FaBus,
+  FaCar,
+  FaChild,
+  FaEbay,
+  FaExclamationCircle,
+  FaFolder,
+  FaFootballBall,
+  FaHome,
+  FaTable,
+} from "react-icons/fa";
 import { FaPeace } from "react-icons/fa";
-import { PiToiletPaperFill } from "react-icons/pi";
 import { FaPencilAlt } from "react-icons/fa";
 
 const newIcons = [
-  <MdHomeFilled />,
-  <TiHome />,
-  <RiContactsBook2Fill />,
-  <MdContactMail />,
-  <PiLadderFill />,
-  <PiIntersectSquareFill />,
-  <FaImage />,
-  <FaMagnifyingGlassPlus />,
-  <FaMicrophone />,
-  <SiMicrosoftexcel />,
-  <PiNotepadFill />,
-  <ImMenu />,
-  <PiLeafFill />,
-  <PiNumberFiveFill />,
-  <PiNumberCircleSevenFill />,
-  <PiRoadHorizonFill />,
-  <GiSandsOfTime />,
-  <PiAnchorSimpleBold />,
-  <PiTriangleFill />,
-  <PiIntersectBold />,
-  <BiLogoFlickrSquare />,
+  <FaHouse />,
+  <FaHome />,
   <FaBaseballBall />,
-  <AiFillQuestionCircle />,
-  <TbSquareRoundedLetterA />,
-  <BsWatch />,
-  <PiGlobeSimpleFill />,
-  <TbLemon />,
+  <FaImage />,
+  <FaMicrophone />,
+  <FaBaseballBall />,
   <FaPeace />,
-  <PiToiletPaperFill />,
   <FaPencilAlt />,
+  <Fa42Group />,
+  <FaAccessibleIcon />,
+  <FaAddressBook />,
+  <FaAddressCard />,
+  <FaFolder />,
+  <FaFootballBall />,
+  <FaCar />,
+  <FaBus />,
+  <FaBook />,
+  <FaVolumeHigh />,
+  <FaBottleWater />,
+  <FaFingerprint />,
+  <FaCarBattery />,
+  <FaCakeCandles />,
+  <FaEarListen />,
+  <FaEbay />,
+  <FaChild />,
+  <FaTable />,
+  <FaExclamationCircle />,
+  <FaAirbnb />,
+  <FaApple />,
+  <FaBars />,
 ];
 const colorChoice = [
   "#0166FF",
@@ -83,6 +86,11 @@ export function AddCategory() {
     iconColor,
     setIconColor,
     newCategory,
+    categories,
+    setCategories,
+    getCategories,
+    refresh,
+    setRefresh,
   } = useText();
   return (
     <div className="flex justify-center items-center">
@@ -105,13 +113,12 @@ export function AddCategory() {
         </div>
         <form
           onSubmit={(event) => {
-            event.preventDefault(),
-              setAddCat(false),
-              newCategory(
-                `<${icon.type.name}/>`,
-                iconColor,
-                event.target.newCategory.value
-              );
+            event.preventDefault(), setAddCat(false), console.log(icon);
+            newCategory(
+              icon.type.name,
+              iconColor,
+              event.target.newCategory.value
+            );
           }}
           className="flex flex-col p-6"
         >
@@ -142,8 +149,9 @@ export function AddCategory() {
                       <div
                         key={index}
                         className="cursor-pointer"
-                        onClick={() => {
+                        onClick={(event) => {
                           setIcon(item);
+                          console.log(event.target);
                         }}
                       >
                         {item}

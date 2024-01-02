@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import { MdHomeFilled } from "react-icons/md";
+import { FaHouse } from "react-icons/fa6";
 import { api } from "@/app/common/axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -18,16 +18,18 @@ export function AuthProvider({ children }) {
   const [isDbActive, setIsDbActive] = useState("");
   const [step, setStep] = useState(100);
   const [showIcons, setShowIcons] = useState(false);
-  const [icon, setIcon] = useState(<MdHomeFilled />);
+  const [icon, setIcon] = useState(<FaHouse />);
   const [iconColor, setIconColor] = useState("#000000");
   const [dropCategory, setDropCategory] = useState(false);
   const [days, setDays] = useState(90);
   const [profileLog, setProfileLog] = useState(false);
+  const [refresh, setRefresh] = useState(0);
   const [addNewCategory, setAddNewCategory] = useState(
     "Find or choose category"
   );
   const [categories, setCategories] = useState([]);
   const [records, setRecords] = useState([]);
+  const [categoryColor, setCategoryColor] = useState("#000000");
   const [filterCategory, setFilterCategory] = useState(false);
 
   const router = useRouter();
@@ -157,19 +159,27 @@ export function AuthProvider({ children }) {
   };
 
   //Add record
-  const addNewRecord = async (type, category, amount, date, payee, note) => {
+  const addNewRecord = async (
+    type,
+    category,
+    amount,
+    date,
+    payee,
+    note,
+    categoryColor
+  ) => {
     try {
       const token = localStorage.getItem("token");
-      console.log(token);
       const { data } = await api.post(
         "/records",
-        { type, category, amount, date, payee, note },
+        { type, category, amount, date, payee, note, categoryColor },
         {
           headers: {
             Authorization: token,
           },
         }
       );
+      setRefresh(refresh + 1);
       toast.info(data.message, {
         position: "top-center",
         autoClose: 2000,
@@ -198,6 +208,7 @@ export function AuthProvider({ children }) {
           },
         }
       );
+      setRefresh(refresh + 1);
       toast.info(data.message, {
         position: "top-center",
         autoClose: 2000,
@@ -222,30 +233,26 @@ export function AuthProvider({ children }) {
           Authorization: token,
         },
       });
-      console.log(data)
       setCategories(data);
     } catch (err) {
       console.log(err), "FFF";
     }
   };
 
-    // get Records
-    const getRecords = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const { data } = await api.get("/records", {
-          headers: {
-            Authorization: token,
-          },
-        });
-        setRecords(data);
-      } catch (err) {
-        console.log(err), "FFF";
-      }
-    };
-
-
-
+  // get Records
+  const getRecords = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const { data } = await api.get("/records", {
+        headers: {
+          Authorization: token,
+        },
+      });
+      setRecords(data);
+    } catch (err) {
+      console.log(err), "FFF";
+    }
+  };
 
   // Sign-Out
   const signOut = () => {
@@ -259,11 +266,13 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
-      getCategories();
-      getRecords();
     }
     setIsReady(true);
   }, []);
+
+  useEffect(() => {
+    getCategories(), getRecords();
+  }, [refresh]);
 
   return (
     <div lang="en">
@@ -318,7 +327,11 @@ export function AuthProvider({ children }) {
             addNewCategory,
             setAddNewCategory,
             filterCategory,
-            setFilterCategory
+            setFilterCategory,
+            refresh,
+            setRefresh,
+            categoryColor,
+            setCategoryColor,
           }}
         >
           {isReady ? children : <Loading />}

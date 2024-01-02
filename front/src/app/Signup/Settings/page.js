@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Step1 } from "@/app/Components/Step1";
 import { Step2 } from "@/app/Components/Step2";
 import { Step3 } from "@/app/Components/Step3";
-import { useText } from "@/app/Components/AuthProvider";
+import { useText } from "@/app/Components/provider/AuthProvider";
 
 export default function Settings() {
   const {step, setStep, changeStep}=useText();

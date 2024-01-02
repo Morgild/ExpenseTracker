@@ -1,1 +1,38 @@
-[{"category":"cat1","icon":"<TiHome/>","color":"#F9D100","userEmail":"admin"},{"category":"cat2","icon":"<RiContactsBook2Fill/>","color":"#F9D100","userEmail":"admin"},{"category":"aaa","icon":"<RiContactsBook2Fill/>","color":"#F9D100","userEmail":"admin"},{"category":"112","icon":"<MdHomeFilled/>","color":"#000000","userEmail":"admin"},{"category":"df","icon":"<FaMagnifyingGlassPlus/>","color":"#F9D100","userEmail":"admin"},{"category":"test","icon":"<FaMicrophone/>","color":"#41CC00","userEmail":"admin"},{"category":"","icon":"<MdHomeFilled/>","color":"#000000","userEmail":"admin"},{"category":"sdfdfasf","icon":"<TiHome/>","color":"#000000","userEmail":"admin"}]
+[
+  {
+    "category": "test",
+    "icon": "FaBus",
+    "color": "#41CC00",
+    "userEmail": "admin"
+  },
+  {
+    "category": "test2",
+    "icon": "FaCar",
+    "color": "#41CC00",
+    "userEmail": "admin"
+  },
+  {
+    "category": "test3",
+    "icon": "FaMicrophone",
+    "color": "#FF7B01",
+    "userEmail": "admin"
+  },
+  {
+    "category": "sdfa",
+    "icon": "FaPeace",
+    "color": "#015EAC",
+    "userEmail": "admin"
+  },
+  {
+    "category": "Food",
+    "icon": "FaImage",
+    "color": "#000000",
+    "userEmail": "admin"
+  },
+  {
+    "category": "aassdd",
+    "icon": "FaPencilAlt",
+    "color": "#FF7B01",
+    "userEmail": "admin"
+  }
+]

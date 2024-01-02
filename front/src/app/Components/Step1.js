@@ -1,4 +1,4 @@
-import { useText } from "./AuthProvider";
+import { useText } from "./provider/AuthProvider";
 export function Step1() {
     const {step, setStep, changeStep} = useText();
     return (

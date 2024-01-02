@@ -67,7 +67,7 @@ app.post("/records", async (req, res) => {
   try {
     const payload = jwt.verify(authorization, "secret-key");
     const { email } = payload;
-    const { type, category, amount, date, payee, note } = req.body;
+    const { type, category, amount, date, payee, note, categoryColor } = req.body;
     const filePath = "src/data/records.json";
     const recordsRaw = await fs.readFile(filePath, "utf-8");
     const records = JSON.parse(recordsRaw);
@@ -79,6 +79,7 @@ app.post("/records", async (req, res) => {
       date,
       payee,
       note,
+      categoryColor,
       userEmail: email,
     });
 

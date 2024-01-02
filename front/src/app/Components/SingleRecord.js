@@ -11,7 +11,7 @@ export function SingleRecord(props) {
           name="Record"
           value={"Record"}
         />
-        <div className="flex items-center justify-center rounded-full bg-[#0166FF] w-10 h-10"><img className="w-5 h-5" src="/categoryIcon.png" /></div>
+        <div style={{backgroundColor:props.color}} className="flex items-center justify-center rounded-full bg-[#0166FF] w-10 h-10"><img className="w-5 h-5" src="/categoryIcon.png" /></div>
         <div className="flex flex-col">
           <label className="text-base text-black">
             {props.category}

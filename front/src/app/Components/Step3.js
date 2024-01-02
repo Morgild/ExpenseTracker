@@ -1,4 +1,4 @@
-import { useText } from "./AuthProvider";
+import { useText } from "./provider/AuthProvider";
 import { useRouter } from "next/navigation";
 export function Step3() {
   const router=useRouter();

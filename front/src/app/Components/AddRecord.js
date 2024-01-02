@@ -3,37 +3,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { FaCirclePlus } from "react-icons/fa6";
 import { AddCategory } from "./AddCategory";
 
-import { MdHomeFilled } from "react-icons/md";
-import { TiHome } from "react-icons/ti";
-import { RiContactsBook2Fill } from "react-icons/ri";
-import { MdContactMail } from "react-icons/md";
-import { PiLadderFill } from "react-icons/pi";
-import { PiIntersectSquareFill } from "react-icons/pi";
-import { FaImage } from "react-icons/fa6";
-import { FaMagnifyingGlassPlus } from "react-icons/fa6";
-import { FaMicrophone } from "react-icons/fa6";
-import { SiMicrosoftexcel } from "react-icons/si";
-import { PiNotepadFill } from "react-icons/pi";
-import { ImMenu } from "react-icons/im";
-import { PiLeafFill } from "react-icons/pi";
-import { PiNumberFiveFill } from "react-icons/pi";
-import { PiNumberCircleSevenFill } from "react-icons/pi";
-import { PiRoadHorizonFill } from "react-icons/pi";
-import { GiSandsOfTime } from "react-icons/gi";
-import { PiAnchorSimpleBold } from "react-icons/pi";
-import { PiTriangleFill } from "react-icons/pi";
-import { PiIntersectBold } from "react-icons/pi";
-import { BiLogoFlickrSquare } from "react-icons/bi";
-import { FaBaseballBall } from "react-icons/fa";
-import { AiFillQuestionCircle } from "react-icons/ai";
-import { TbSquareRoundedLetterA } from "react-icons/tb";
-import { BsWatch } from "react-icons/bs";
-import { PiGlobeSimpleFill } from "react-icons/pi";
-import { TbLemon } from "react-icons/tb";
-import { FaPeace } from "react-icons/fa";
-import { PiToiletPaperFill } from "react-icons/pi";
-import { FaPencilAlt } from "react-icons/fa";
-
+import * as icons from "react-icons/fa";
 
 export function AddRecord() {
   const {
@@ -46,12 +16,15 @@ export function AddRecord() {
     categories,
     setCategories,
     getCategories,
+    getRecords,
     dropCategory,
     setDropCategory,
     dropDownCategory,
     addNewRecord,
     addNewCategory,
     setAddNewCategory,
+    categoryColor,
+    setCategoryColor,
   } = useText();
   return (
     <div className="flex justify-center items-center">
@@ -64,23 +37,21 @@ export function AddRecord() {
       <form
         onSubmit={(event) => {
           event.preventDefault(),
-          setAddRecord(false),
-        
-            // type, category, amount, date, payee, note
+            setAddRecord(false),
+            // type, category, amount, date, payee, note, color
             addNewRecord(
               expense ? "expense" : "income",
               addNewCategory !== "Find or choose category"
                 ? addNewCategory
                 : "Miscellaneous",
               event.target.amount.value,
-
-              addNewCategory !== "Find or choose category"
-                ? addNewCategory
-                : "Miscellaneous",
               event.target.date.value,
               event.target.payee.value,
-              event.target.note.value
-            );
+              event.target.note.value,
+              categoryColor
+            ),
+            getRecords();
+          console.log(categoryColor);
         }}
         className="WHITE absolute z-20 top-[50%] translate-y-[-50%] bg-white rounded-xl"
       >
@@ -137,7 +108,7 @@ export function AddRecord() {
             <div>
               <h4 className="text-[#171717] text-base font-normal">Category</h4>
               <div className="flex relative">
-                <p
+                <div
                   onClick={() => {
                     dropDownCategory();
                     getCategories();
@@ -145,9 +116,9 @@ export function AddRecord() {
                   className="w-full relative bg-[#F3F4F6] flex flex-col rounded-lg border border-[#D1D5DB] py-3 px-4 text-[#94A3B8]"
                   placeholder="Find or choose category"
                 >
-                  <p>{addNewCategory}</p>
+                  <p className="text-[#171717]">{addNewCategory}</p>
                   <IoMdArrowDropdown className="absolute text-black right-[10px] top-[50%] translate-y-[-50%]" />
-                </p>
+                </div>
                 {dropCategory && (
                   <div
                     className="DROPDOWN absolute top-[100%] bg-[#F3F4F6]  w-full rounded-l-lg drop-shadow-[0_4px_12px_rgba(0,0,0,0.25)] cursor-pointer
@@ -169,13 +140,23 @@ export function AddRecord() {
                         setDropCategory(false);
                       }}
                     >
-                      {Object.keys(categories).map((item,index)=>(
-                        <div key={index} onClick={()=>{setAddNewCategory(categories[item].category)}} className="flex items-center p-4 gap-3 border-b border-[#0000001A] cursor-pointer">
-                          <TiHome/>
-                          {categories[item].icon}
-                          {categories[item].category}</div>
-                      ))}
-      
+                      {Object.keys(categories).map((item, index) => {
+                        const Icon = icons[categories[item].icon];
+                        return (
+                          <div
+                            key={index}
+                            onClick={(event) => {
+                              setAddNewCategory(categories[item].category);
+                              setCategoryColor(event.target.style.fill);
+                            }}
+                            className="flex items-center p-4 gap-3 border-b border-[#0000001A] cursor-pointer"
+                            style={{ fill: categories[item].color }}
+                          >
+                            <Icon fill={categories[item].color} />
+                            {categories[item].category}
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -185,7 +166,7 @@ export function AddRecord() {
               <div>
                 <h4 className="text-[#171717] text-base font-normal">Date</h4>
                 <div className="w-full bg-[#F3F4F6] flex flex-col rounded-lg border border-[#D1D5DB] py-3 px-4">
-                  <input className="bg-transparent" type="date" name="date"/>
+                  <input className="bg-transparent" type="date" name="date" />
                 </div>
               </div>
               <div>
