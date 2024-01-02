@@ -31,6 +31,7 @@ export function AuthProvider({ children }) {
   const [records, setRecords] = useState([]);
   const [categoryColor, setCategoryColor] = useState("#000000");
   const [filterCategory, setFilterCategory] = useState(false);
+  const [iconName, setIconName] = useState([]);
 
   const router = useRouter();
 
@@ -166,13 +167,14 @@ export function AuthProvider({ children }) {
     date,
     payee,
     note,
-    categoryColor
+    categoryColor,
+    iconName
   ) => {
     try {
       const token = localStorage.getItem("token");
       const { data } = await api.post(
         "/records",
-        { type, category, amount, date, payee, note, categoryColor },
+        { type, category, amount, date, payee, note, categoryColor, iconName },
         {
           headers: {
             Authorization: token,
@@ -332,6 +334,8 @@ export function AuthProvider({ children }) {
             setRefresh,
             categoryColor,
             setCategoryColor,
+            iconName,
+            setIconName
           }}
         >
           {isReady ? children : <Loading />}

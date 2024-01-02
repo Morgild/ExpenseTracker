@@ -27,6 +27,7 @@ import {
   FaExclamationCircle,
   FaFolder,
   FaFootballBall,
+  FaGift,
   FaHome,
   FaTable,
 } from "react-icons/fa";
@@ -39,7 +40,7 @@ const newIcons = [
   <FaBaseballBall />,
   <FaImage />,
   <FaMicrophone />,
-  <FaBaseballBall />,
+  <FaGift/>,
   <FaPeace />,
   <FaPencilAlt />,
   <Fa42Group />,

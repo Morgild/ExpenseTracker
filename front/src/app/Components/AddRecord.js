@@ -25,6 +25,8 @@ export function AddRecord() {
     setAddNewCategory,
     categoryColor,
     setCategoryColor,
+    iconName,
+    setIconName
   } = useText();
   return (
     <div className="flex justify-center items-center">
@@ -38,7 +40,7 @@ export function AddRecord() {
         onSubmit={(event) => {
           event.preventDefault(),
             setAddRecord(false),
-            // type, category, amount, date, payee, note, color
+            // type, category, amount, date, payee, note, color,icon
             addNewRecord(
               expense ? "expense" : "income",
               addNewCategory !== "Find or choose category"
@@ -48,7 +50,8 @@ export function AddRecord() {
               event.target.date.value,
               event.target.payee.value,
               event.target.note.value,
-              categoryColor
+              categoryColor,
+              iconName,
             ),
             getRecords();
           console.log(categoryColor);
@@ -147,10 +150,10 @@ export function AddRecord() {
                             key={index}
                             onClick={(event) => {
                               setAddNewCategory(categories[item].category);
-                              setCategoryColor(event.target.style.fill);
+                              setCategoryColor(categories[item].color);
+                              setIconName(categories[item].icon);
                             }}
                             className="flex items-center p-4 gap-3 border-b border-[#0000001A] cursor-pointer"
-                            style={{ fill: categories[item].color }}
                           >
                             <Icon fill={categories[item].color} />
                             {categories[item].category}

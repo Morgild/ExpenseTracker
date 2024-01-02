@@ -25,7 +25,7 @@ export default function Dashboard() {
       {addRecord&&<AddRecord/>}
       {addCat && <AddCategory />}
       <section onClick={()=>{setProfileLog(false)}} className="md:px-[120px] px-[40px] py-[32px]">
-        <div className="Total cards grid md:grid-cols-3 grid-cols-1 gap-6">
+        <div className="Total cards grid sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-6">
           <div className="w-full relative bg-[#0166FF] rounded-[18px] h-[219.66px] overflow-hidden">
             <div className="absolute z-[5]">
               <img

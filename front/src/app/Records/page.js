@@ -9,7 +9,8 @@ import { AddCategory } from "../Components/AddCategory";
 import { useText } from "../Components/provider/AuthProvider";
 import { Loading } from "../Components/Loading";
 import { useEffect } from "react";
-
+import * as icons from "react-icons/fa";
+import { NewOld } from "../Components/NewOld";
 
 export default function Records() {
   const router = useRouter();
@@ -36,17 +37,16 @@ export default function Records() {
     getCategories,
     getRecords,
     refresh,
-    setRefresh
+    setRefresh,
   } = useText();
 
+  useEffect(() => {
+    if (!isLoggedIn) router.push("/");
+  }, [isLoggedIn]);
 
-  useEffect(()=>{
-    if(!isLoggedIn) router.push("/")
-  },[isLoggedIn])
+  if (isLoading) return <Loading />;
 
-    if(isLoading) return <Loading/>
-
-    if(!isReady) return <Loading/>
+  if (!isReady) return <Loading />;
 
   return (
     <main className="relative flex h-screen w-full bg-[#F3F4F6] flex-col">
@@ -114,7 +114,7 @@ export default function Records() {
             <div className="flex w-full flex-col ">
               {Object.keys(categories).map((item, index) => (
                 <div key={index}>
-                <CategoryList categoryName={categories[item].category} />
+                  <CategoryList categoryName={categories[item].category} />
                 </div>
               ))}
             </div>
@@ -172,21 +172,7 @@ export default function Records() {
                 <img src="/left_arrow.png" />
               </span>
             </div>
-            <div className="flex items-center relative">
-              <select className="bg-transparent text-base font-semibold text-[#1F2937] flex gap-5">
-                <option>Newest</option>
-                <option>Oldest</option>
-              </select>
-              {/* <p className="font-semibold text-[#1F2937] text-base">Newest</p>
-              <p className="font-semibold text-[#1F2937] text-base absolute bottom-[-100%]">
-                Oldest
-              </p> */}
-              {/* <img className="w-6 h-6 rotate-90" src="/leading.png" />
-              <img
-                className="w-6 h-6 rotate-90 absolute bottom-[-100%] right-[-0%]"
-                src="/leading.png"
-              /> */}
-            </div>
+         <NewOld/>
           </div>
           <div className="flex bg-white px-6 py-3 justify-between border border-solid border-[#E5E7EB] rounded-lg">
             <div className="flex gap-4">
@@ -204,10 +190,19 @@ export default function Records() {
             </p>
           </div>
           <div className="flex flex-col gap-3 mt-[24px]">
-          {Object.keys(records).map((item, index) => (
-                <SingleRecord key={index} color={records[item].categoryColor} category={records[item].category} amount={records[item].amount} />
-              ))}
-            <SingleRecord />
+            {Object.keys(records).map((item, index) => {
+              const Icon = icons[records[item].iconName];
+              return (
+                <SingleRecord
+                  key={index}
+                  color={records[item].categoryColor}
+                  category={records[item].category}
+                  amount={records[item].amount}
+                >
+                  <Icon />
+                </SingleRecord>
+              );
+            })}
           </div>
         </section>
       </div>
