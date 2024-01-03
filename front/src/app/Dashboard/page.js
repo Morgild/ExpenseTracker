@@ -6,6 +6,7 @@ import { AddRecord } from "../Components/AddRecord";
 import { AddCategory } from "../Components/AddCategory";
 import { Loading } from "../Components/Loading";
 import { useRouter } from "next/navigation";
+import { RecordsList } from "../Components/RecordsList";
 
 export default function Dashboard() {
   const {addRecord, setAddRecord, addCat,setAddCat, setExpense,isLoggedIn,setIsLoggedIn,isLoading,isReady,profileLog,setProfileLog}=useText();
@@ -93,12 +94,12 @@ export default function Dashboard() {
            </div>
           </div>
         </div>
-        <div className="w-full mt-[24px]  bg-white rounded-[12px] h-[219.66px] overflow-hidden">
+        <div className="w-full mt-[24px]  bg-white rounded-[12px] overflow-hidden">
             <div className="flex items-center gap-2 border-b border-[#E2E8F0] border-solid">
               <p className="text-base font-semibold my-4 ml-6">Last Records</p>
             </div>
-           <div className="px-6 h-[400px] flex flex-col">
-            
+           <div className="px-6 pb-6 flex flex-col">
+            <RecordsList/>
            </div>
           </div>
       </section>

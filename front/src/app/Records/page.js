@@ -3,14 +3,16 @@ import { HeaderDashboard } from "../Components/HeaderDashboard";
 import { Button } from "../Components/Button";
 import { CategoryList } from "../Components/CategoryList";
 import { useRouter } from "next/navigation";
-import { SingleRecord } from "../Components/SingleRecord";
 import { AddRecord } from "../Components/AddRecord";
 import { AddCategory } from "../Components/AddCategory";
 import { useText } from "../Components/provider/AuthProvider";
 import { Loading } from "../Components/Loading";
 import { useEffect } from "react";
-import * as icons from "react-icons/fa";
 import { NewOld } from "../Components/NewOld";
+import { DaysFilter } from "../Components/DaysFilter";
+import { RadioTypes } from "../Components/RadioTypes";
+import { AmountRange } from "../Components/AmountRange";
+import { RecordsList } from "../Components/RecordsList";
 
 export default function Records() {
   const router = useRouter();
@@ -75,33 +77,7 @@ export default function Records() {
             type="text"
             placeholder="Search"
           />
-          <div className="TYPES flex flex-col gap-4">
-            <h4 className="text-base font-semibold text-[#1F2937]">Types</h4>
-            <label className="flex py-1 px-3 gap-2 items-center">
-              <input
-                className="h-4 w-4 opacity-50 border border-[#374151]"
-                type="radio"
-                name="radio"
-              />
-              All
-            </label>
-            <label className="flex py-1 px-3 gap-2 items-center">
-              <input
-                className="h-4 w-4 opacity-50 border border-[#374151]"
-                type="radio"
-                name="radio"
-              />
-              Income
-            </label>
-            <label className="flex py-1 px-3 gap-2 items-center">
-              <input
-                className="h-4 w-4 opacity-50 border border-[#374151]"
-                type="radio"
-                name="radio"
-              />
-              Expense
-            </label>
-          </div>
+          <RadioTypes />
           <div className="CATEGORY w-full flex flex-col gap-4">
             <div className="flex justify-between py-1">
               <h3 className="text-[#1F2937] text-base font-semibold">
@@ -129,50 +105,13 @@ export default function Records() {
                 Add Category
               </p>
             </div>
-            <div className="flex flex-col justify-between py-1 gap-4">
-              <h3 className="text-[#1F2937] text-base font-semibold">
-                Amount Range
-              </h3>
-              <div className="w-full grid grid-cols-2 gap-4">
-                <input
-                  className="rounded-lg border border-[#D1D5DB] flex py-3 px-4 bg-[#F3F4F6]"
-                  type="text"
-                  value={0}
-                />
-                <input
-                  className="rounded-lg border border-[#D1D5DB] flex py-3 px-4 bg-[#F3F4F6]"
-                  type="text"
-                  value={1000}
-                />
-              </div>
-              <div className="w-full">
-                <input className="w-full" type="range" min={10} max={1000} />
-                <div className="flex justify-between">
-                  <p>min</p>
-                  <p>max</p>
-                </div>
-              </div>
-            </div>
+            <AmountRange />
           </div>
         </aside>
         <section className="w-full flex flex-col">
           <div className="flex justify-between items-center mb-6">
-            <div className="flex gap-4 items-center">
-              <span
-                onClick={minusDays}
-                className="w-8 h-8 flex items-center justify-center bg-[#E5E7EB] rounded-[8px] p-[6px] font-semibold cursor-pointer"
-              >
-                <img src="/left_arrow.png" />
-              </span>
-              <p>Last {days} Days</p>
-              <span
-                onClick={plusDays}
-                className="w-8 h-8 rotate-180 flex items-center justify-center bg-[#E5E7EB] rounded-[8px] p-[6px] font-semibold cursor-pointer"
-              >
-                <img src="/left_arrow.png" />
-              </span>
-            </div>
-         <NewOld/>
+            <DaysFilter />
+            <NewOld />
           </div>
           <div className="flex bg-white px-6 py-3 justify-between border border-solid border-[#E5E7EB] rounded-lg">
             <div className="flex gap-4">
@@ -189,21 +128,7 @@ export default function Records() {
               Total value
             </p>
           </div>
-          <div className="flex flex-col gap-3 mt-[24px]">
-            {Object.keys(records).map((item, index) => {
-              const Icon = icons[records[item].iconName];
-              return (
-                <SingleRecord
-                  key={index}
-                  color={records[item].categoryColor}
-                  category={records[item].category}
-                  amount={records[item].amount}
-                >
-                  <Icon />
-                </SingleRecord>
-              );
-            })}
-          </div>
+          <RecordsList />
         </section>
       </div>
     </main>

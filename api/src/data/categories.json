@@ -1,1 +1,26 @@
-[{"category":"Food","icon":"FaImage","color":"#000000","userEmail":"admin"},{"category":"Gift","icon":"FaGift","color":"#FF0101","userEmail":"admin"},{"category":"Vehicle","icon":"FaCar","color":"#AE01FF","userEmail":"admin"},{"category":"Other","icon":"FaMicrophone","color":"#F9D100","userEmail":"admin"}]
+[
+  {
+    "category": "Food",
+    "icon": "FaImage",
+    "color": "#000000",
+    "userEmail": "admin"
+  },
+  {
+    "category": "Gift",
+    "icon": "FaGift",
+    "color": "#FF0101",
+    "userEmail": "admin"
+  },
+  {
+    "category": "Vehicle",
+    "icon": "FaCar",
+    "color": "#AE01FF",
+    "userEmail": "admin"
+  },
+  {
+    "category": "Other",
+    "icon": "FaMicrophone",
+    "color": "#F9D100",
+    "userEmail": "admin"
+  }
+]
