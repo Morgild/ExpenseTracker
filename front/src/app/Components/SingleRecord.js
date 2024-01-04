@@ -3,13 +3,17 @@ import * as icons from "react-icons/fa";
 
 export function SingleRecord(props) {
   const Icon1 = icons[props.icon];
+  const numberFormatter = new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
   return (
     <div className="flex bg-white px-6 py-3 justify-between items-center border border-solid border-[#E5E7EB] rounded-lg">
       <div className="flex gap-4 items-center">
         <input
           className="w-6 h-6 rounded-[4px] opacity-90 border border-solid border-[#1F2937]"
           type="checkbox"
-          id="Record"
           name="Record"
           value={"Record"}
         />
@@ -21,10 +25,10 @@ export function SingleRecord(props) {
         </div>
         <div className="flex flex-col">
           <label className="text-base text-black">{props.category}</label>
-          <p className="text-xs font-normal text-[#6B7280]">14:00</p>
+          <p className="text-xs font-normal text-[#6B7280]">{props.date}</p>
         </div>
       </div>
-      <p className="font-semibold text-[#23E01F] text-base">{props.amount}</p>
+      <p style={{color:props.type=="expense"?"#F54949":"#23E01F"}} className="font-semibold text-base">{numberFormatter.format(props.amount)}</p>
     </div>
   );
 }

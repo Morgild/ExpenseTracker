@@ -15,7 +15,7 @@ export function NewOld() {
         <p className="font-semibold text-[#1F2937] text-base mr-[16px]">
           {old?"Oldest first":"Newest first"}
         </p>
-        <IoMdArrowDropdown />
+        <IoMdArrowDropdown style={{rotate:old?'180deg':'0deg'}}/>
       </div>
     </div>
   );

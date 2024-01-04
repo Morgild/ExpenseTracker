@@ -29,12 +29,14 @@ import {
   FaFootballBall,
   FaGift,
   FaHome,
+  FaPlusSquare,
   FaTable,
 } from "react-icons/fa";
 import { FaPeace } from "react-icons/fa";
 import { FaPencilAlt } from "react-icons/fa";
 
 const newIcons = [
+  <FaPlusSquare/>,
   <FaHouse />,
   <FaHome />,
   <FaBaseballBall />,
@@ -64,7 +66,6 @@ const newIcons = [
   <FaExclamationCircle />,
   <FaAirbnb />,
   <FaApple />,
-  <FaBars />,
 ];
 const colorChoice = [
   "#0166FF",
@@ -152,7 +153,6 @@ export function AddCategory() {
                         className="cursor-pointer"
                         onClick={(event) => {
                           setIcon(item);
-                          console.log(event.target);
                         }}
                       >
                         {item}

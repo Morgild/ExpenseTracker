@@ -29,9 +29,11 @@ export function AuthProvider({ children }) {
   );
   const [categories, setCategories] = useState([]);
   const [records, setRecords] = useState([]);
+  const [filteredRecords, setFilteredRecords] = useState('');
   const [categoryColor, setCategoryColor] = useState("#000000");
   const [filterCategory, setFilterCategory] = useState(false);
   const [iconName, setIconName] = useState([]);
+  const [radioChecked, setRadioChecked] = useState("");
 
   const router = useRouter();
 
@@ -262,6 +264,15 @@ export function AuthProvider({ children }) {
     setIsLoggedIn(false);
     router.push("/");
   };
+  // Filter Categories
+  const filterRecords = (value) => {
+    const filteredRecords = records.filter((records) =>
+      records.type.includes(value)
+    );
+    setFilteredRecords(filteredRecords);
+    // setRefresh(refresh+1);
+  };
+  // console.log()
 
   useEffect(() => {
     setIsReady(false);
@@ -273,9 +284,11 @@ export function AuthProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    getCategories(), getRecords();
+    getCategories();
+    getRecords();
   }, [refresh]);
-
+  
+  console.log(filteredRecords)
   return (
     <div lang="en">
       <div>
@@ -335,7 +348,12 @@ export function AuthProvider({ children }) {
             categoryColor,
             setCategoryColor,
             iconName,
-            setIconName
+            setIconName,
+            radioChecked,
+            setRadioChecked,
+            filterRecords,
+            filteredRecords,
+            setFilteredRecords
           }}
         >
           {isReady ? children : <Loading />}

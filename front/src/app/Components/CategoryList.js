@@ -7,10 +7,10 @@ export function CategoryList(props) {
     <div className="w-full flex py-1 px-3 justify-between items-center">
       <div className="flex items-center gap-2">
       <img onClick={(event)=>{
-        console.log(event.target.src)
-        if (event.target.src=="http://localhost:3000/eye.png"){
-          event.target.src="http://localhost:3000/eyeoff.png"
-        } else {event.target.src="http://localhost:3000/eye.png"}
+        console.log(event.target.parentNode.lastChild.textContent)
+        if (event.target.src.slice(-7)=="eye.png"){
+          event.target.src="/eyeoff.png"
+        } else {event.target.src="eye.png"}
       }} className="h-[14px]" src="/eye.png"/>
         <p className="font-normal text-base text-[#1F2937] cursor-pointer">{props.categoryName}</p>
       </div>
