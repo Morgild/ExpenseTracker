@@ -38,6 +38,9 @@ export function AuthProvider({ children }) {
   const [rangeMin, setRangeMin]=useState(0);
   const [rangeMax, setRangeMax]=useState(1000000);
   const [rangeValue, setRangeValue]=useState(1000000);
+  const [old, setOld] = useState(false);
+  const [sum,setSum]=useState(0);
+  const [isClear,setIsClear]=useState(false);
 
   const router = useRouter();
 
@@ -362,7 +365,11 @@ export function AuthProvider({ children }) {
             rangeValue,
             setRangeMax,
             setRangeMin,
-            setRangeValue
+            setRangeValue,
+            old,
+            setOld,
+            isClear,
+            setIsClear
           }}
         >
           {isReady ? children : <Loading />}

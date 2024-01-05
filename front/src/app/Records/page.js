@@ -28,7 +28,8 @@ export default function Records() {
     categories,
     setCategoryFilter,
     setRefresh,
-    refresh
+    refresh,
+    setIsClear
   } = useText();
 
   useEffect(() => {
@@ -73,7 +74,8 @@ export default function Records() {
                 Category
               </h3>
               <p
-                onClick={() => {setCategoryFilter([]),
+                onClick={() => {setCategoryFilter([]);
+                  setIsClear(true);
                 setRefresh(refresh+1)}}
                 className="text-[#1F2937] text-base font-normal opacity-20 hover:opacity-80 mr-3 cursor-pointer"
               >
@@ -105,21 +107,6 @@ export default function Records() {
           <div className="flex justify-between items-center mb-6">
             <DaysFilter />
             <NewOld />
-          </div>
-          <div className="flex bg-white px-6 py-3 justify-between border border-solid border-[#E5E7EB] rounded-lg">
-            <div className="flex gap-4">
-              <input
-                className="w-6 h-6 rounded-[4px] opacity-20 border border-solid border-[#1F2937]"
-                type="checkbox"
-                id="selectAll"
-                name="selectAll"
-                value={"SelectAll"}
-              />
-              <label>Select All</label>
-            </div>
-            <p className="font-semibold text-[#94A3B8] text-base">
-              Total value
-            </p>
           </div>
           <RecordsList />
         </section>

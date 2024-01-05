@@ -36,13 +36,13 @@ import { FaPeace } from "react-icons/fa";
 import { FaPencilAlt } from "react-icons/fa";
 
 const newIcons = [
-  <FaPlusSquare/>,
+  <FaPlusSquare />,
   <FaHouse />,
   <FaHome />,
   <FaBaseballBall />,
   <FaImage />,
   <FaMicrophone />,
-  <FaGift/>,
+  <FaGift />,
   <FaPeace />,
   <FaPencilAlt />,
   <Fa42Group />,

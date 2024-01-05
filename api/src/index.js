@@ -67,7 +67,16 @@ app.post("/records", async (req, res) => {
   try {
     const payload = jwt.verify(authorization, "secret-key");
     const { email } = payload;
-    const { type, category, amount, date, payee, note, categoryColor,iconName } = req.body;
+    const {
+      type,
+      category,
+      amount,
+      date,
+      payee,
+      note,
+      categoryColor,
+      iconName,
+    } = req.body;
     const filePath = "src/data/records.json";
     const recordsRaw = await fs.readFile(filePath, "utf-8");
     const records = JSON.parse(recordsRaw);
@@ -149,7 +158,7 @@ app.post("/category", async (req, res) => {
 });
 
 app.get("/category", async (req, res) => {
-  const { authorization } = req.headers;
+  const { authorization, days, old } = req.headers;
   if (!authorization) {
     return res.status(401).json({ message: "Unauthorized1" });
   }
@@ -158,8 +167,9 @@ app.get("/category", async (req, res) => {
   const filePath = "src/data/categories.json";
   const categoriesRaw = await fs.readFile(filePath, "utf-8");
   const categoriesList = JSON.parse(categoriesRaw);
-
-  const categories = categoriesList.filter((categories) => categories.userEmail === email);
+  const categories = categoriesList.filter(
+    (categories) => categories.userEmail === email
+  );
   res.json(categories);
 });
 

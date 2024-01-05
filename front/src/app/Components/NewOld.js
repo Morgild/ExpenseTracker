@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { useText } from "./provider/AuthProvider";
 
 export function NewOld() {
-  const [old, setOld] = useState(false);
+
+  const {old,setOld}=useText();
   const handleOld = () => {
     setOld((prev) => !prev);
   };
