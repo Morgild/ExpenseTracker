@@ -22,24 +22,13 @@ export default function Records() {
     setAddRecord,
     addCat,
     setAddCat,
-    setExpense,
-    days,
-    minusDays,
-    plusDays,
     isLoading,
     isLoggedIn,
-    profileLog,
     setProfileLog,
     categories,
-    setCategories,
-    records,
-    setRecords,
-    filterCategory,
-    setFilterCategory,
-    getCategories,
-    getRecords,
-    refresh,
+    setCategoryFilter,
     setRefresh,
+    refresh
   } = useText();
 
   useEffect(() => {
@@ -83,7 +72,11 @@ export default function Records() {
               <h3 className="text-[#1F2937] text-base font-semibold">
                 Category
               </h3>
-              <p className="text-[#1F2937] text-base font-normal opacity-20 mr-3">
+              <p
+                onClick={() => {setCategoryFilter([]),
+                setRefresh(refresh+1)}}
+                className="text-[#1F2937] text-base font-normal opacity-20 hover:opacity-80 mr-3 cursor-pointer"
+              >
                 Clear
               </p>
             </div>

@@ -31,9 +31,13 @@ export function AuthProvider({ children }) {
   const [records, setRecords] = useState([]);
   const [filteredRecords, setFilteredRecords] = useState('');
   const [categoryColor, setCategoryColor] = useState("#000000");
-  const [filterCategory, setFilterCategory] = useState(false);
+  // const [filterCategory, setFilterCategory] = useState(false);
   const [iconName, setIconName] = useState([]);
   const [radioChecked, setRadioChecked] = useState("");
+  const [categoryFilter, setCategoryFilter]= useState([]);
+  const [rangeMin, setRangeMin]=useState(0);
+  const [rangeMax, setRangeMax]=useState(1000000);
+  const [rangeValue, setRangeValue]=useState(1000000);
 
   const router = useRouter();
 
@@ -265,14 +269,13 @@ export function AuthProvider({ children }) {
     router.push("/");
   };
   // Filter Categories
-  const filterRecords = (value) => {
-    const filteredRecords = records.filter((records) =>
-      records.type.includes(value)
-    );
-    setFilteredRecords(filteredRecords);
-    // setRefresh(refresh+1);
-  };
-  // console.log()
+  // const filterRecords = (value) => {
+  //   const filteredRecords = records.filter((records) =>
+  //     records.type.includes(value)
+  //   );
+  //   setFilteredRecords(filteredRecords);
+  //   // setRefresh(refresh+1);
+  // };
 
   useEffect(() => {
     setIsReady(false);
@@ -287,8 +290,7 @@ export function AuthProvider({ children }) {
     getCategories();
     getRecords();
   }, [refresh]);
-  
-  console.log(filteredRecords)
+
   return (
     <div lang="en">
       <div>
@@ -341,8 +343,8 @@ export function AuthProvider({ children }) {
             handleProfileLog,
             addNewCategory,
             setAddNewCategory,
-            filterCategory,
-            setFilterCategory,
+            // filterCategory,
+            // setFilterCategory,
             refresh,
             setRefresh,
             categoryColor,
@@ -351,9 +353,16 @@ export function AuthProvider({ children }) {
             setIconName,
             radioChecked,
             setRadioChecked,
-            filterRecords,
             filteredRecords,
-            setFilteredRecords
+            setFilteredRecords,
+            categoryFilter,
+            setCategoryFilter,
+            rangeMax,
+            rangeMin,
+            rangeValue,
+            setRangeMax,
+            setRangeMin,
+            setRangeValue
           }}
         >
           {isReady ? children : <Loading />}

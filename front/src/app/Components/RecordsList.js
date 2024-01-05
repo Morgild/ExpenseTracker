@@ -1,29 +1,36 @@
 import { useText } from "./provider/AuthProvider";
 import { SingleRecord } from "./SingleRecord";
-import * as icons from "react-icons/fa";
 
 export function RecordsList() {
-    const {records,filteredRecords}=useText()
-    return (
-        <div className="flex flex-col gap-3 mt-[24px]">
-        {Object.keys(filteredRecords).map((item, index) => {
-          const Icon = icons[filteredRecords[item].iconName];
+  const { records, radioChecked, categoryFilter, setCategoryFilter,rangeValue,rangeMin } =
+    useText();
+  return (
+    <div className="flex flex-col gap-3 mt-[24px]">
+      {records
+        .filter((record) => {
+          if (!radioChecked) return true;
+          return record.type.toLowerCase() === radioChecked;
+        })
+        .filter((record) => {
+          if (!categoryFilter.length) return true;
+          return (!categoryFilter.includes(record.category))
+        })
+        .filter((record)=>{
+          return record.amount<=rangeValue;
+        })
+        .map((item, index) => {
           return (
             <SingleRecord
               key={index}
-              color={filteredRecords[item].categoryColor}
-              category={filteredRecords[item].note}
-              amount={filteredRecords[item].amount}
-              icon={filteredRecords[item].iconName}
-              type={filteredRecords[item].type}
-              date={filteredRecords[item].date}
-            >
-              <Icon />
-            </SingleRecord>
+              color={item.categoryColor}
+              category={item.note}
+              amount={item.amount}
+              icon={item.iconName}
+              type={item.type}
+              date={item.date}
+            />
           );
         })}
-      </div>
-    )
+    </div>
+  );
 }
-
-
