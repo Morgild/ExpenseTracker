@@ -103,7 +103,7 @@ app.post("/records", async (req, res) => {
   }
 });
 
-app.get("/records", async (req, res) => {
+app.post("/recordsfilter", async (req, res) => {
   const { authorization } = req.headers;
   if (!authorization) {
     return res.status(401).json({ message: "Unauthorized1" });

@@ -1,23 +1,9 @@
 import { useText } from "./provider/AuthProvider";
-import {
-  Fa42Group,
-  FaAccessibleIcon,
-  FaAddressBook,
-  FaBottleWater,
-  FaCakeCandles,
-  FaCarBattery,
-  FaEarListen,
-  FaFingerprint,
-  FaHouse,
-  FaImage,
-  FaVolumeHigh,
-} from "react-icons/fa6";
-import { FaMicrophone } from "react-icons/fa6";
+
 import {
   FaAddressCard,
   FaAirbnb,
   FaApple,
-  FaBars,
   FaBaseballBall,
   FaBook,
   FaBus,
@@ -31,41 +17,53 @@ import {
   FaHome,
   FaPlusSquare,
   FaTable,
+  FaPeace,
+  FaPencilAlt,
+  FaAngrycreative,
+  FaAngleDown,
+  FaArchive,
+  FaSave,
+  FaLaptop,
+  FaDiaspora,
+  FaBicycle,
+  FaBible,
+  FaAtom,
+  FaBitcoin
 } from "react-icons/fa";
-import { FaPeace } from "react-icons/fa";
-import { FaPencilAlt } from "react-icons/fa";
+
 
 const newIcons = [
   <FaPlusSquare />,
-  <FaHouse />,
   <FaHome />,
   <FaBaseballBall />,
-  <FaImage />,
-  <FaMicrophone />,
   <FaGift />,
   <FaPeace />,
   <FaPencilAlt />,
-  <Fa42Group />,
-  <FaAccessibleIcon />,
-  <FaAddressBook />,
   <FaAddressCard />,
   <FaFolder />,
   <FaFootballBall />,
   <FaCar />,
   <FaBus />,
   <FaBook />,
-  <FaVolumeHigh />,
-  <FaBottleWater />,
-  <FaFingerprint />,
-  <FaCarBattery />,
-  <FaCakeCandles />,
-  <FaEarListen />,
   <FaEbay />,
   <FaChild />,
   <FaTable />,
   <FaExclamationCircle />,
   <FaAirbnb />,
   <FaApple />,
+  <FaBook/>,
+  <FaExclamationCircle/>,
+  <FaAngrycreative/>,
+  <FaAngleDown/>,
+  <FaArchive/>,
+  <FaSave/>,
+  <FaLaptop/>,
+  <FaDiaspora/>,
+  <FaBicycle/>,
+  <FaBible/>,
+  <FaAtom/>,
+  <FaBitcoin/>
+
 ];
 const colorChoice = [
   "#0166FF",
@@ -93,12 +91,14 @@ export function AddCategory() {
     getCategories,
     refresh,
     setRefresh,
+    setShowIcons,
   } = useText();
   return (
     <div className="flex justify-center items-center">
       <main
         onClick={() => {
           setAddCat(false);
+          setShowIcons(false);
         }}
         className="BACKGROUND fixed z-30 top-0 left-0 h-screen w-screen bg-[#00000080]"
       ></main>
@@ -108,6 +108,7 @@ export function AddCategory() {
           <img
             onClick={() => {
               setAddCat(false);
+              setShowIcons(false);
             }}
             className="w-[15.76px] cursor-pointer"
             src="/x.png"

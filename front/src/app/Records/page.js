@@ -29,7 +29,7 @@ export default function Records() {
     setCategoryFilter,
     setRefresh,
     refresh,
-    setIsClear
+    setIsClear,
   } = useText();
 
   useEffect(() => {
@@ -74,9 +74,11 @@ export default function Records() {
                 Category
               </h3>
               <p
-                onClick={() => {setCategoryFilter([]);
+                onClick={() => {
+                  setCategoryFilter([]);
                   setIsClear(true);
-                setRefresh(refresh+1)}}
+                  setRefresh(refresh + 1);
+                }}
                 className="text-[#1F2937] text-base font-normal opacity-20 hover:opacity-80 mr-3 cursor-pointer"
               >
                 Clear

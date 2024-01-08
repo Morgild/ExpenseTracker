@@ -68,6 +68,7 @@ export function HeaderDashboard() {
           <p className="w-full flex items-center justify-center text-center">Profile</p>
           <p onClick={() => {
             signOut();
+            handleProfileLog()
           }} className="w-full pt-2 flex items-center justify-center border-t border-[#D1D5DB]">Log Out</p>
         </div>}
       </div>

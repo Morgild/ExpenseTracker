@@ -23,12 +23,13 @@ export function AmountRange() {
             onChange={(event)=>{setRangeValue(event.target.value)}}
             className="rounded-lg border border-[#D1D5DB] flex py-3 px-4 bg-[#F3F4F6]"
             type="text"
+            value={rangeValue}
             placeholder={numberFormatter.format(rangeValue)}
           />
         </div>
         <div className="w-full">
           <div className="RANGE gap-[0px] relative">
-          <input className=" absolute w-full text-black bg-gray-200 h-1" onChange={(event)=>{setRangeValue(event.target.value)}} type="range" min={rangeMin} max={1000000} />
+          <input className=" absolute w-full text-black bg-gray-200 h-1" value={rangeValue} onChange={(event)=>{setRangeValue(event.target.value)}} type="range" min={rangeMin} max={1000000} />
           </div>
           <div className="mt-5 flex justify-between">
             <p>{numberFormatter.format(rangeMin)}</p>

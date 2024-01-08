@@ -251,10 +251,12 @@ export function AuthProvider({ children }) {
   };
 
   // get Records
-  const getRecords = async () => {
+  const getRecords = async (days, old) => {
     try {
       const token = localStorage.getItem("token");
-      const { data } = await api.get("/records", {
+      const { data } = await api.post("/recordsfilter", 
+      {days,old},
+      {
         headers: {
           Authorization: token,
         },
@@ -271,14 +273,6 @@ export function AuthProvider({ children }) {
     setIsLoggedIn(false);
     router.push("/");
   };
-  // Filter Categories
-  // const filterRecords = (value) => {
-  //   const filteredRecords = records.filter((records) =>
-  //     records.type.includes(value)
-  //   );
-  //   setFilteredRecords(filteredRecords);
-  //   // setRefresh(refresh+1);
-  // };
 
   useEffect(() => {
     setIsReady(false);
@@ -329,6 +323,7 @@ export function AuthProvider({ children }) {
             icon,
             setIcon,
             showIcons,
+            setShowIcons,
             iconChoose,
             iconColor,
             setIconColor,
@@ -346,8 +341,6 @@ export function AuthProvider({ children }) {
             handleProfileLog,
             addNewCategory,
             setAddNewCategory,
-            // filterCategory,
-            // setFilterCategory,
             refresh,
             setRefresh,
             categoryColor,
@@ -369,7 +362,7 @@ export function AuthProvider({ children }) {
             old,
             setOld,
             isClear,
-            setIsClear
+            setIsClear,
           }}
         >
           {isReady ? children : <Loading />}

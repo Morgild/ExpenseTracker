@@ -1,8 +1,7 @@
-import { IconContext } from "react-icons";
-import * as icons from "react-icons/fa";
+import * as icons1 from "react-icons/fa";
 
 export function SingleRecord(props) {
-  const Icon1 = icons[props.icon];
+  const Icon1 = icons1[props.icon];
   const numberFormatter = new Intl.NumberFormat('en-US', {
     style: 'decimal',
     minimumFractionDigits: 0,

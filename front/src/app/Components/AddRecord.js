@@ -1,9 +1,8 @@
 import { useText } from "./provider/AuthProvider";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FaCirclePlus } from "react-icons/fa6";
-import { AddCategory } from "./AddCategory";
+import { ChooseCategory } from "./ChooseCategory";
 
-import * as icons from "react-icons/fa";
 
 export function AddRecord() {
   const {
@@ -26,7 +25,7 @@ export function AddRecord() {
     categoryColor,
     setCategoryColor,
     iconName,
-    setIconName
+    setIconName,
   } = useText();
   return (
     <div className="flex justify-center items-center">
@@ -47,14 +46,13 @@ export function AddRecord() {
                 ? addNewCategory
                 : "Miscellaneous",
               event.target.amount.value,
-              event.target.date.value,
+              event.target.date.value+event.target.time.value,
               event.target.payee.value,
               event.target.note.value,
               categoryColor,
-              iconName,
+              iconName
             ),
             getRecords();
-          console.log(categoryColor);
         }}
         className="WHITE absolute z-20 top-[50%] translate-y-[-50%] bg-white rounded-xl"
       >
@@ -137,30 +135,7 @@ export function AddRecord() {
                       <FaCirclePlus className="w-6 h-6" fill="#0166FF" />
                       <p>Add Category</p>
                     </div>
-                    <div
-                      className=""
-                      onClick={() => {
-                        setDropCategory(false);
-                      }}
-                    >
-                      {Object.keys(categories).map((item, index) => {
-                        const Icon = icons[categories[item].icon];
-                        return (
-                          <div
-                            key={index}
-                            onClick={(event) => {
-                              setAddNewCategory(categories[item].category);
-                              setCategoryColor(categories[item].color);
-                              setIconName(categories[item].icon);
-                            }}
-                            className="flex items-center p-4 gap-3 border-b border-[#0000001A] cursor-pointer"
-                          >
-                            <Icon fill={categories[item].color} />
-                            {categories[item].category}
-                          </div>
-                        );
-                      })}
-                    </div>
+                    <ChooseCategory/>
                   </div>
                 )}
               </div>

@@ -11,7 +11,6 @@ export function RecordsList() {
       }
       setSum[total]
     }
-    console.log(records)
   return (
     <>
     <div className="flex bg-white px-6 py-3 justify-between border border-solid border-[#E5E7EB] rounded-lg">
