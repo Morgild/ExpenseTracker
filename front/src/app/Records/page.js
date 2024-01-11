@@ -85,9 +85,9 @@ export default function Records() {
               </p>
             </div>
             <div className="flex w-full flex-col ">
-              {Object.keys(categories).map((item, index) => (
+              {categories.map((item, index) => (
                 <div key={index}>
-                  <CategoryList categoryName={categories[item].category} />
+                  <CategoryList {...item} />
                 </div>
               ))}
             </div>

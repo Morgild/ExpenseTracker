@@ -16,7 +16,7 @@ export function RecordsList() {
     <div className="flex bg-white px-6 py-3 justify-between border border-solid border-[#E5E7EB] rounded-lg">
     <div className="flex gap-4">
       <input
-        className="w-6 h-6 rounded-[4px] opacity-20 border border-solid border-[#1F2937]"
+        className="w-6 h-6 rounded-[4px] opacity-80 border border-solid border-[#1F2937]"
         type="checkbox"
         name="selectAll"
         value={"SelectAll"}

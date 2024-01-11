@@ -46,7 +46,7 @@ export function AddRecord() {
                 ? addNewCategory
                 : "Miscellaneous",
               event.target.amount.value,
-              event.target.date.value+event.target.time.value,
+              event.target.date.value,
               event.target.payee.value,
               event.target.note.value,
               categoryColor,

@@ -29,18 +29,18 @@ export function AuthProvider({ children }) {
   );
   const [categories, setCategories] = useState([]);
   const [records, setRecords] = useState([]);
-  const [filteredRecords, setFilteredRecords] = useState('');
+  const [filteredRecords, setFilteredRecords] = useState("");
   const [categoryColor, setCategoryColor] = useState("#000000");
   // const [filterCategory, setFilterCategory] = useState(false);
   const [iconName, setIconName] = useState([]);
   const [radioChecked, setRadioChecked] = useState("");
-  const [categoryFilter, setCategoryFilter]= useState([]);
-  const [rangeMin, setRangeMin]=useState(0);
-  const [rangeMax, setRangeMax]=useState(1000000);
-  const [rangeValue, setRangeValue]=useState(1000000);
+  const [categoryFilter, setCategoryFilter] = useState([]);
+  const [rangeMin, setRangeMin] = useState(0);
+  const [rangeMax, setRangeMax] = useState(1000000);
+  const [rangeValue, setRangeValue] = useState(1000000);
   const [old, setOld] = useState(false);
-  const [sum,setSum]=useState(0);
-  const [isClear,setIsClear]=useState(false);
+  const [sum, setSum] = useState(0);
+  const [isClear, setIsClear] = useState(false);
 
   const router = useRouter();
 
@@ -61,6 +61,7 @@ export function AuthProvider({ children }) {
     if (days == 90) {
       setDays(7);
     }
+    setRefresh(refresh+1)
   };
 
   // Minus days function
@@ -80,6 +81,7 @@ export function AuthProvider({ children }) {
     if (days == 7) {
       setDays(90);
     }
+    setRefresh(refresh+1)
   };
 
   const handleProfileLog = () => {
@@ -251,14 +253,16 @@ export function AuthProvider({ children }) {
   };
 
   // get Records
-  const getRecords = async (days, old) => {
+  const getRecords = async () => {
     try {
       const token = localStorage.getItem("token");
-      const { data } = await api.post("/recordsfilter", 
-      {days,old},
-      {
+      const { data } = await api.get(`/records`, {
         headers: {
           Authorization: token,
+        },
+        params: {
+          days:days,
+          old:old
         },
       });
       setRecords(data);

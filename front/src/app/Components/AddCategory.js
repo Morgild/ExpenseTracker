@@ -33,7 +33,7 @@ import {
 
 
 const newIcons = [
-  <FaPlusSquare />,
+  <FaPlusSquare/>,
   <FaHome />,
   <FaBaseballBall />,
   <FaGift />,

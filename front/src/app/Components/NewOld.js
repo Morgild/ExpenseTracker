@@ -4,9 +4,10 @@ import { useText } from "./provider/AuthProvider";
 
 export function NewOld() {
 
-  const {old,setOld}=useText();
+  const {old,setOld,refresh,setRefresh}=useText();
   const handleOld = () => {
     setOld((prev) => !prev);
+    setRefresh(refresh+1)
   };
   return (
     <div className="border border-[#D1D5DB] relative rounded-lg ">

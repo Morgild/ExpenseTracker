@@ -4,7 +4,7 @@ import Link from "next/link";
 import { PasswordStrength } from "../Components/PasswordStrength";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useText } from "../Components/AuthProvider";
+import { useText } from "../Components/provider/AuthProvider";
 import { toast } from "react-toastify";
 
 export default function Signup() {

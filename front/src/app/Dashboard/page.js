@@ -6,12 +6,16 @@ import { AddRecord } from "../Components/AddRecord";
 import { AddCategory } from "../Components/AddCategory";
 import { Loading } from "../Components/Loading";
 import { useRouter } from "next/navigation";
-import { RecordsList } from "../Components/RecordsList";
+import { DashboardRecords } from "../Components/DashboardRecords";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+import { BarChart } from "../Components/BarChart";
+
 
 export default function Dashboard() {
-  const {addRecord, setAddRecord, addCat,setAddCat, setExpense,isLoggedIn,setIsLoggedIn,isLoading,isReady,profileLog,setProfileLog}=useText();
+  const {addRecord, setAddRecord, addCat,setAddCat, setExpense,isLoggedIn,setIsLoggedIn,isLoading,isReady,profileLog,setProfileLog,records}=useText();
   const router=useRouter();
-
+  ChartJS.register(ArcElement, Tooltip, Legend);
   useEffect(()=>{
     if(!isLoggedIn) router.push("/")
   },[isLoggedIn])
@@ -90,7 +94,7 @@ export default function Dashboard() {
               <p className="text-base font-semibold my-4 ml-6">Income-Expense</p>
             </div>
            <div className="py-[20px] h-[200px] px-[24px] gap-4 flex flex-col">
-            
+            <BarChart/>
            </div>
           </div>
         </div>
@@ -99,7 +103,7 @@ export default function Dashboard() {
               <p className="text-base font-semibold my-4 ml-6">Last Records</p>
             </div>
            <div className="px-6 pb-6 flex flex-col">
-            <RecordsList/>
+            <DashboardRecords/>
            </div>
           </div>
       </section>
