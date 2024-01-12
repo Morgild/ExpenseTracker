@@ -2,15 +2,25 @@ import { useText } from "./provider/AuthProvider";
 import { SingleRecord } from "./SingleRecord";
 
 export function RecordsList() {
-  const { records, radioChecked, categoryFilter, setCategoryFilter,rangeValue,rangeMin,sum,setSum } =
+  const { records, radioChecked, categoryFilter,rangeValue, numberFormatter } =
     useText();
-    const calculateSum=()=>{
-      let total=0;
-      for (let i=0;i<records.length;i++){
-        total+=records.amount[i]
-      }
-      setSum[total]
-    }
+
+    const sum =records
+      .filter((record) => {
+        if (!radioChecked) return true;
+        return record.type.toLowerCase() === radioChecked;
+      })
+      .filter((record) => {
+        if (!categoryFilter.length) return true;
+        return (!categoryFilter.includes(record.category))
+      })
+      .filter((record)=>{
+        return record.amount<=rangeValue;
+      })
+      .reduce((sum, currentValue) => {
+        return sum + currentValue.amount;
+      }, 0) 
+      
   return (
     <>
     <div className="flex bg-white px-6 py-3 justify-between border border-solid border-[#E5E7EB] rounded-lg">
@@ -21,10 +31,10 @@ export function RecordsList() {
         name="selectAll"
         value={"SelectAll"}
       />
-      <label onClick={calculateSum}>Select All</label>
+      <label >Select All</label>
     </div>
     <p className="font-semibold text-[#94A3B8] text-base">
-      {sum}
+    {numberFormatter.format(sum)}
     </p>
   </div>
     <div className="flex flex-col gap-3 mt-[24px]">

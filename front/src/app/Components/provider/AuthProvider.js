@@ -41,8 +41,16 @@ export function AuthProvider({ children }) {
   const [old, setOld] = useState(false);
   const [sum, setSum] = useState(0);
   const [isClear, setIsClear] = useState(false);
+  const [selectAll, setSelectAll] = useState("checked");
+  const [checked, setChecked] = useState(false);
 
   const router = useRouter();
+
+  const numberFormatter = new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
 
   // Add days function
   const plusDays = () => {
@@ -297,6 +305,7 @@ export function AuthProvider({ children }) {
       <div>
         <TextContext.Provider
           value={{
+            numberFormatter,
             isLoading,
             setIsLoading,
             isReady,
@@ -367,6 +376,10 @@ export function AuthProvider({ children }) {
             setOld,
             isClear,
             setIsClear,
+            selectAll,
+            setSelectAll,
+            checked,
+            setChecked
           }}
         >
           {isReady ? children : <Loading />}

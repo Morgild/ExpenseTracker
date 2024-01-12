@@ -1,6 +1,8 @@
 import * as icons1 from "react-icons/fa";
+import { useText } from "./provider/AuthProvider";
 
 export function SingleRecord(props) {
+  const {selectAll,setSelectAll,checked,setChecked}=useText();
   const Icon1 = icons1[props.icon];
   const numberFormatter = new Intl.NumberFormat('en-US', {
     style: 'decimal',
@@ -15,6 +17,8 @@ export function SingleRecord(props) {
           type="checkbox"
           name="Record"
           value={"Record"}
+          checked={checked}
+          onChange={()=>{setChecked(!checked)}}
         />
         <div
           style={{ backgroundColor: props.color }}
