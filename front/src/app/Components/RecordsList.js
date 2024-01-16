@@ -2,7 +2,7 @@ import { useText } from "./provider/AuthProvider";
 import { SingleRecord } from "./SingleRecord";
 
 export function RecordsList() {
-  const { records, radioChecked, categoryFilter,rangeValue, numberFormatter } =
+  const { records, radioChecked, categoryFilter,rangeValue, numberFormatter,currency } =
     useText();
 
     const sum =records
@@ -34,7 +34,7 @@ export function RecordsList() {
       <label >Select All</label>
     </div>
     <p className="font-semibold text-[#94A3B8] text-base">
-    {numberFormatter.format(sum)}
+    {numberFormatter.format(sum)}{currency}
     </p>
   </div>
     <div className="flex flex-col gap-3 mt-[24px]">

@@ -26,7 +26,11 @@ export default function Dashboard() {
     profileLog,
     setProfileLog,
     records,
-    numberFormatter
+    numberFormatter,
+    setOld,
+    setDays,
+    setCurrency,
+    currency
   } = useText();
   const router = useRouter();
   ChartJS.register(ArcElement, Tooltip, Legend);
@@ -34,7 +38,10 @@ export default function Dashboard() {
     if (!isLoggedIn) router.push("/");
   }, [isLoggedIn]);
 
-
+  useEffect(() => {
+    setOld(false);
+    setDays(90);
+  }, []);
 
   const expenseSum =records
     .filter((record)=>{
@@ -84,7 +91,7 @@ export default function Dashboard() {
               <p className="text-base font-normal text-white opacity-50 ">
                 Cash
               </p>
-              <p className="text-2xl font-semibold text-white">{numberFormatter.format(incomeSum-expenseSum)}</p>
+              <p className="text-2xl font-semibold text-white">{numberFormatter.format(incomeSum-expenseSum)}{currency}</p>
             </div>
             <img
               className="h-[40.2px] absolute bottom-[20px] right-[20px]"
@@ -97,7 +104,7 @@ export default function Dashboard() {
               <p className="text-base font-semibold my-4">Your Income</p>
             </div>
             <div className="py-[20px] px-[24px] gap-4 flex flex-col">
-              <h3 className="text-black font-semibold text-4xl">{numberFormatter.format(incomeSum)}</h3>
+              <h3 className="text-black font-semibold text-4xl">{numberFormatter.format(incomeSum)}{currency}</h3>
               <p className="text-[#64748B] font-normal text-lg">
                 Your Income Amount
               </p>
@@ -116,7 +123,7 @@ export default function Dashboard() {
             </div>
             <div className="py-[20px] px-[24px] gap-4 flex flex-col">
               <h3 className="text-black font-semibold text-4xl">
-                {numberFormatter.format(expenseSum)}
+                {numberFormatter.format(expenseSum)}{currency}
               </h3>
               <p className="text-[#64748B] font-normal text-lg">
                 Your Income Amount

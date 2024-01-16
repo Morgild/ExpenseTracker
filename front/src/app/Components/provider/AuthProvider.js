@@ -43,6 +43,7 @@ export function AuthProvider({ children }) {
   const [isClear, setIsClear] = useState(false);
   const [selectAll, setSelectAll] = useState("checked");
   const [checked, setChecked] = useState(false);
+  const [currency, setCurrency] = useState("₮");
 
   const router = useRouter();
 
@@ -379,7 +380,9 @@ export function AuthProvider({ children }) {
             selectAll,
             setSelectAll,
             checked,
-            setChecked
+            setChecked,
+            currency,
+            setCurrency
           }}
         >
           {isReady ? children : <Loading />}

@@ -107,14 +107,13 @@ app.post("/records", async (req, res) => {
 app.get("/records", async (req, res) => {
   const { authorization } = req.headers;
   const { days, old } = req.query;
- 
+ console.log(days)
   if (!authorization) {
     return res.status(401).json({ message: "Unauthorized1" });
   }
   const payload = jwt.verify(authorization, "secret-key");
   const { id } = payload;
   const filterDate = new Date(Date.now() - 3600 * 1000 * 24 * days);
-  
   const records = await Record.find({ userId: id });
   const filteredRecords = records.filter((item) => item.date > filterDate);
   

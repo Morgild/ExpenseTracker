@@ -2,7 +2,7 @@ import * as icons1 from "react-icons/fa";
 import { useText } from "./provider/AuthProvider";
 
 export function SingleRecord(props) {
-  const {selectAll,setSelectAll,checked,setChecked}=useText();
+  const {selectAll,setSelectAll,checked,setChecked,currency}=useText();
   const Icon1 = icons1[props.icon];
   const numberFormatter = new Intl.NumberFormat('en-US', {
     style: 'decimal',
@@ -31,7 +31,7 @@ export function SingleRecord(props) {
           <p className="text-xs font-normal text-[#6B7280]">{props.date}</p>
         </div>
       </div>
-      <p style={{color:props.type=="expense"?"#F54949":"#23E01F"}} className="font-semibold text-base">{numberFormatter.format(props.amount)}</p>
+      <p style={{color:props.type=="expense"?"#F54949":"#23E01F"}} className="font-semibold text-base">{numberFormatter.format(props.amount)}{currency}</p>
     </div>
   );
 }

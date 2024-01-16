@@ -1,6 +1,8 @@
 import * as icons from "react-icons/fa";
+import { useText } from "./provider/AuthProvider";
 export function DashboardSingleRecord(props) {
   const Icon2 = icons[props.icon];
+  const {currency}=useText();
   const numberFormatter = new Intl.NumberFormat('en-US', {
     style: 'decimal',
     minimumFractionDigits: 0,
@@ -17,6 +19,6 @@ export function DashboardSingleRecord(props) {
       <p className="font-normal text-black text-base ">{props.note}</p>
       <p className="font-normal text-[#6B7280] text-xs">{props.date}</p>
     </div>
-    <p className="font-semibold text-base" style={{color:props.type=="expense"?"#F54949":"#23E01F"}}>{numberFormatter.format(props.amount)}</p>
+    <p className="font-semibold text-base" style={{color:props.type=="expense"?"#F54949":"#23E01F"}}>{numberFormatter.format(props.amount)}{currency}</p>
   </div>)
 }
