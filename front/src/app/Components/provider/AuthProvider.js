@@ -46,17 +46,16 @@ export function AuthProvider({ children }) {
   const [isClear, setIsClear] = useState(false);
   const [checked, setChecked] = useState(false);
   const [currency, setCurrency] = useState("₮");
-  const [checkList,setCheckList]=useState([]);
-  const [searchValue,setSearchValue]=useState("");
-  const [dashboardRecords,setDashboardRecords]=useState([]);
-
+  const [checkList, setCheckList] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [dashboardRecords, setDashboardRecords] = useState([]);
 
   const router = useRouter();
 
-  const numberFormatter = new Intl.NumberFormat('en-US', {
-    style: 'decimal',
+  const numberFormatter = new Intl.NumberFormat("en-US", {
+    style: "decimal",
     minimumFractionDigits: 0,
-    maximumFractionDigits: 0
+    maximumFractionDigits: 0,
   });
 
   // Add days function
@@ -76,7 +75,7 @@ export function AuthProvider({ children }) {
     if (days == 90) {
       setDays(7);
     }
-    setRefresh(refresh + 1)
+    setRefresh(refresh + 1);
   };
 
   // Minus days function
@@ -96,7 +95,7 @@ export function AuthProvider({ children }) {
     if (days == 7) {
       setDays(90);
     }
-    setRefresh(refresh + 1)
+    setRefresh(refresh + 1);
   };
 
   const handleProfileLog = () => {
@@ -170,7 +169,12 @@ export function AuthProvider({ children }) {
   // Sing-Up
   const signUp = async (name, email, password, currency) => {
     try {
-      const { data } = await api.post("/sign-up", { name, email, password, currency });
+      const { data } = await api.post("/sign-up", {
+        name,
+        email,
+        password,
+        currency,
+      });
       toast.info(data.message, {
         position: "top-center",
         autoClose: true,
@@ -279,7 +283,7 @@ export function AuthProvider({ children }) {
         },
         params: {
           days: days,
-          old: old
+          old: old,
         },
       });
       setRecords(data.sortedRecords);
@@ -309,7 +313,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     setIsReady(false);
     const token = localStorage.getItem("token");
-    const currency = localStorage.getItem("currency");
+    setCurrency(localStorage.getItem("currency"));
     if (token) {
       setIsLoggedIn(true);
     }
