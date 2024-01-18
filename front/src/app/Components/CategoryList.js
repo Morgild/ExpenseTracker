@@ -14,8 +14,7 @@ export function CategoryList({category}) {
                 categoryFilter.filter((item) => item !== category)
               );
             } else {
-              categoryFilter.push(category);
-              setCategoryFilter(categoryFilter);
+              setCategoryFilter([...categoryFilter, category]);
               setRefresh(refresh + 1);
             }
           }}

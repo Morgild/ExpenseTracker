@@ -24,7 +24,7 @@ app.get("/users", async (req, res) => {
 });
 
 app.post("/sign-up", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, currency } = req.body;
 
   const userExist = await User.find({ email: email });
 
@@ -36,6 +36,7 @@ app.post("/sign-up", async (req, res) => {
     name,
     email,
     password,
+    currency,
     updatedAt: new Date(),
     createdAt: new Date(),
   });
@@ -52,11 +53,13 @@ app.post("/sign-in", async (req, res) => {
   }
 
   const id = user._id;
+  const currency = user.currency;
 
   const token = jwt.sign({ id }, "secret-key");
 
   return res.json({
     token,
+    currency,
     message: "Logged in suceessfully",
   });
   res.status(500).send({ message: "Invalid credientials" });
@@ -107,24 +110,25 @@ app.post("/records", async (req, res) => {
 app.get("/records", async (req, res) => {
   const { authorization } = req.headers;
   const { days, old } = req.query;
- console.log(days)
+  console.log(days);
   if (!authorization) {
     return res.status(401).json({ message: "Unauthorized1" });
   }
   const payload = jwt.verify(authorization, "secret-key");
   const { id } = payload;
-  const filterDate = new Date(Date.now() - 3600 * 1000 * 24 * days);
+
   const records = await Record.find({ userId: id });
+  const filterDate = new Date(Date.now() - 3600 * 1000 * 24 * days);
   const filteredRecords = records.filter((item) => item.date > filterDate);
-  
+
   const sortedRecords = filteredRecords.sort((a, b) => {
-    if (old=='true') {
-     return a.date - b.date;
+    if (old == "true") {
+      return a.date - b.date;
     } else {
-     return b.date - a.date;
+      return b.date - a.date;
     }
   });
-  res.json(sortedRecords);
+  return res.json({sortedRecords,records});
 });
 
 app.post("/category", async (req, res) => {

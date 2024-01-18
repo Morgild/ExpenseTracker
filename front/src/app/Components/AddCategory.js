@@ -33,7 +33,7 @@ import {
 
 
 const newIcons = [
-  <FaPlusSquare/>,
+  <FaPlusSquare />,
   <FaHome />,
   <FaBaseballBall />,
   <FaGift />,
@@ -51,19 +51,18 @@ const newIcons = [
   <FaExclamationCircle />,
   <FaAirbnb />,
   <FaApple />,
-  <FaBook/>,
-  <FaExclamationCircle/>,
-  <FaAngrycreative/>,
-  <FaAngleDown/>,
-  <FaArchive/>,
-  <FaSave/>,
-  <FaLaptop/>,
-  <FaDiaspora/>,
-  <FaBicycle/>,
-  <FaBible/>,
-  <FaAtom/>,
-  <FaBitcoin/>
-
+  <FaBook />,
+  <FaExclamationCircle />,
+  <FaAngrycreative />,
+  <FaAngleDown />,
+  <FaArchive />,
+  <FaSave />,
+  <FaLaptop />,
+  <FaDiaspora />,
+  <FaBicycle />,
+  <FaBible />,
+  <FaAtom />,
+  <FaBitcoin />
 ];
 const colorChoice = [
   "#0166FF",

@@ -2,10 +2,10 @@ import { DashboardSingleRecord } from "./DashboardSingleRecord";
 import { useText } from "./provider/AuthProvider";
 
 export function DashboardRecords() {
-const {records}=useText();
+const {dashboardRecords}=useText();
   return (
   <div className="flex flex-col px-6">
-   {records.map((item, index) => {
+   {dashboardRecords.map((item, index) => {
           return (
             <DashboardSingleRecord
               key={index}

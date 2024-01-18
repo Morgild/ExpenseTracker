@@ -30,6 +30,7 @@ export default function Records() {
     setRefresh,
     refresh,
     setIsClear,
+    setSearchValue,
   } = useText();
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function Records() {
   if (!isReady) return <Loading />;
 
   return (
-    <main className="relative flex h-screen w-full bg-[#F3F4F6] flex-col">
+    <main className="relative flex min-h-screen h-full w-full bg-[#F3F4F6] flex-col">
       <HeaderDashboard />
       {addRecord && <AddRecord />}
       {addCat && <AddCategory />}
@@ -66,6 +67,7 @@ export default function Records() {
             className="rounded-lg py-1 px-4 border border-[#D1D5DB] bg-[#F3F4F6]"
             type="text"
             placeholder="Search"
+            onChange={(event)=>{setSearchValue(event.target.value)}}
           />
           <RadioTypes />
           <div className="CATEGORY w-full flex flex-col gap-4">

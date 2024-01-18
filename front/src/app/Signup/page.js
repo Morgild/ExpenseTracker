@@ -8,11 +8,8 @@ import { useText } from "../Components/provider/AuthProvider";
 import { toast } from "react-toastify";
 
 export default function Signup() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [repass, setRepass] = useState("");
-  const { signUp } = useText();
+
+  const { signUp,name,email,pass,repass,setName,setEmail,setPass,setRepass } = useText();
   const router = useRouter();
   function isNameValid(name) {
     if (name.length < 1) {
@@ -131,15 +128,16 @@ export default function Signup() {
           </div>
           <form
             onSubmit={(event) => {
-              event.preventDefault(),
-                name * email * pass * repass == 1
-                  ? signUp(
-                      event.target.Name.value,
-                      event.target.Email.value,
-                      event.target.Password.value
-                    )
-                  : name != true
-                  ? toast.warn(`${isNameValid(event.target.Name.value)}`, {
+              event.preventDefault();
+                if (name * email * pass * repass==1){
+                      setName(event.target.Name.value);
+                      setEmail(event.target.Email.value);
+                      setPass(event.target.Password.value);
+                      router.push('/Signup/Settings')
+                    };
+                      
+                  if(name != true)
+                  {toast.warn(`${isNameValid(event.target.Name.value)}`, {
                       position: "top-right",
                       autoClose: 3000,
                       hideProgressBar: false,
@@ -148,10 +146,9 @@ export default function Signup() {
                       draggable: true,
                       progress: undefined,
                       theme: "light",
-                    })
-                  : null;
-                   email != true
-                  ? toast.warn(`${emailValidation(event.target.Email.value)}`, {
+                    })}
+                   if(email != true)
+                  {toast.warn(`${emailValidation(event.target.Email.value)}`, {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -160,10 +157,9 @@ export default function Signup() {
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-                    })
-                  : null;
-                  pass != true
-                  ? toast.warn(`${passwordValidation(event.target.Password.value)}`, {
+                    })}
+                  if(pass != true)
+                  {toast.warn(`${passwordValidation(event.target.Password.value)}`, {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -172,21 +168,21 @@ export default function Signup() {
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-                    })
-                  : null;
-                  repass != true
-                  ? toast.error(`${isRepasswordSimilar(event.target.Password.value, event.target.Repassword.value)}`, {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    })
-                  : null;
+                    })}
                   
+                  if(repass != true)
+                  {toast.error(`${isRepasswordSimilar(event.target.Password.value, event.target.Repassword.value)}`, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    })
+                  }
+                  // name * email * pass * repass == 1?router.push('/Signup/Settings')
             }}
             className="relative flex flex-col gap-4"
           >

@@ -1,4 +1,5 @@
 import React from "react";
+import { format } from "date-fns";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,6 +12,13 @@ import {
 import { Bar } from "react-chartjs-2";
 import { useText } from "./provider/AuthProvider";
 
+function getMonthName(monthNumber) {
+  const date = new Date();
+  date.setMonth(monthNumber - 1);
+
+  return date.toLocaleString("en-US", { month: "short" });
+}
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -21,7 +29,7 @@ ChartJS.register(
 );
 
 export function BarChart() {
-  const { records } = useText();
+  const { dashboardRecords } = useText();
   const options = {
     responsive: true,
     plugins: {
@@ -31,7 +39,7 @@ export function BarChart() {
     },
   };
 
-  const labels = records.map((item) => item.category);
+  const labels = dashboardRecords.map((item) => getMonthName(format(item.date, "MM")));
 
   const data = {
     labels,
@@ -39,7 +47,7 @@ export function BarChart() {
       {
         label: "Income",
         data: labels.map(() =>
-          records
+        dashboardRecords
             .filter((item) => {
               return item.type === "income";
             })
@@ -50,7 +58,7 @@ export function BarChart() {
       {
         label: "Expense",
         data: labels.map(() =>
-          records
+        dashboardRecords
             .filter((item) => {
               return item.type === "expense";
             })

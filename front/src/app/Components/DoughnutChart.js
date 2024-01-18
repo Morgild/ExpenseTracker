@@ -6,34 +6,45 @@ import { useText } from './provider/AuthProvider';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function DoughnutChart() {
-  const {records}=useText();
+  const { dashboardRecords } = useText();
   const options = {
     responsive: false,
     plugins: {
       legend:
-       {
+      {
         position: "right",
       },
     },
   };
+  function groupBy(list, keyGetter) {
+    const map = new Map();
+    list.forEach((item) => {
+         const key = keyGetter(item);
+         const collection = map.get(key);
+         if (!collection) {
+             map.set(key, [item]);
+         } else {
+             collection.push(item);
+         }
+    });
+    return map;
+}
+// const grouped=groupBy(records,record=>record.category)
+  const data = {
+    labels: dashboardRecords.map((item, index) => (item.category)),
+    datasets: [
+      {
+        label: 'Expense by category ',
+        data: dashboardRecords
+          .filter((item) => { return item.type == "expense" })
+          .map((item) => (item.amount))
 
-const data = {
-  labels: records.map((item,index)=>(item.category)),
-  datasets: [
-    {
-      label: 'Expense by category ',
-      data: records
-      .filter((item)=>{return item.type=="expense"})
-      .map((item)=>(item.amount))
-      
-      // .reduce((sum, currentValue) => {
-      //   return sum + currentValue.amount;
-      // }, 0) 
-      ,
-      backgroundColor:
-      records.map((item,index)=>(item.categoryColor)),
-    },
-  ],
-}; 
-  return <Doughnut options={options} data={data}/>;
+
+        ,
+        backgroundColor:
+        dashboardRecords.map((item, index) => (item.categoryColor)),
+      },
+    ],
+  };
+  return <Doughnut options={options} data={data} />;
 }

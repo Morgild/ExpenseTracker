@@ -21,29 +21,35 @@ export function AuthProvider({ children }) {
   const [icon, setIcon] = useState(<FaHouse />);
   const [iconColor, setIconColor] = useState("#000000");
   const [dropCategory, setDropCategory] = useState(false);
-  const [days, setDays] = useState(90);
   const [profileLog, setProfileLog] = useState(false);
   const [refresh, setRefresh] = useState(0);
   const [addNewCategory, setAddNewCategory] = useState(
     "Find or choose category"
   );
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [repass, setRepass] = useState("");
   const [categories, setCategories] = useState([]);
   const [records, setRecords] = useState([]);
   const [filteredRecords, setFilteredRecords] = useState("");
   const [categoryColor, setCategoryColor] = useState("#000000");
-  // const [filterCategory, setFilterCategory] = useState(false);
   const [iconName, setIconName] = useState([]);
   const [radioChecked, setRadioChecked] = useState("");
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [rangeMin, setRangeMin] = useState(0);
   const [rangeMax, setRangeMax] = useState(1000000);
-  const [rangeValue, setRangeValue] = useState(1000000);
+  const [rangeValue, setRangeValue] = useState(10000000);
+  const [days, setDays] = useState(90);
   const [old, setOld] = useState(false);
   const [sum, setSum] = useState(0);
   const [isClear, setIsClear] = useState(false);
-  const [selectAll, setSelectAll] = useState("checked");
   const [checked, setChecked] = useState(false);
   const [currency, setCurrency] = useState("₮");
+  const [checkList,setCheckList]=useState([]);
+  const [searchValue,setSearchValue]=useState("");
+  const [dashboardRecords,setDashboardRecords]=useState([]);
+
 
   const router = useRouter();
 
@@ -70,7 +76,7 @@ export function AuthProvider({ children }) {
     if (days == 90) {
       setDays(7);
     }
-    setRefresh(refresh+1)
+    setRefresh(refresh + 1)
   };
 
   // Minus days function
@@ -90,7 +96,7 @@ export function AuthProvider({ children }) {
     if (days == 7) {
       setDays(90);
     }
-    setRefresh(refresh+1)
+    setRefresh(refresh + 1)
   };
 
   const handleProfileLog = () => {
@@ -126,9 +132,11 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     try {
       const { data } = await api.post("/sign-in", { email, password });
-      const { token } = data;
+      const { token, currency } = data;
       console.log(token);
+      setCurrency(currency);
       localStorage.setItem("token", token);
+      localStorage.setItem("currency", currency);
 
       toast.success(data.message, {
         position: "top-center",
@@ -160,9 +168,9 @@ export function AuthProvider({ children }) {
   };
 
   // Sing-Up
-  const signUp = async (name, email, password) => {
+  const signUp = async (name, email, password, currency) => {
     try {
-      const { data } = await api.post("/sign-up", { name, email, password });
+      const { data } = await api.post("/sign-up", { name, email, password, currency });
       toast.info(data.message, {
         position: "top-center",
         autoClose: true,
@@ -270,11 +278,12 @@ export function AuthProvider({ children }) {
           Authorization: token,
         },
         params: {
-          days:days,
-          old:old
+          days: days,
+          old: old
         },
       });
-      setRecords(data);
+      setRecords(data.sortedRecords);
+      setDashboardRecords(data.records);
     } catch (err) {
       console.log(err), "FFF";
     }
@@ -287,9 +296,20 @@ export function AuthProvider({ children }) {
     router.push("/");
   };
 
+  const recordMax = () => {
+    let max = 0;
+    for (let i = 0; i < records.length; i++) {
+      if (records[i].amount > max) {
+        max = records[i].amount;
+      }
+    }
+    return max;
+  };
+
   useEffect(() => {
     setIsReady(false);
     const token = localStorage.getItem("token");
+    const currency = localStorage.getItem("currency");
     if (token) {
       setIsLoggedIn(true);
     }
@@ -377,12 +397,24 @@ export function AuthProvider({ children }) {
             setOld,
             isClear,
             setIsClear,
-            selectAll,
-            setSelectAll,
             checked,
             setChecked,
             currency,
-            setCurrency
+            setCurrency,
+            checkList,
+            setCheckList,
+            searchValue,
+            setSearchValue,
+            dashboardRecords,
+            setDashboardRecords,
+            name,
+            email,
+            pass,
+            repass,
+            setName,
+            setEmail,
+            setPass,
+            setRepass,
           }}
         >
           {isReady ? children : <Loading />}

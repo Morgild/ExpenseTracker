@@ -11,6 +11,8 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { BarChart } from "../Components/BarChart";
 import { DoughnutChart } from "../Components/DoughnutChart";
+import { format } from "date-fns";
+import { FaArrowUp } from "react-icons/fa";
 
 export default function Dashboard() {
   const {
@@ -25,13 +27,14 @@ export default function Dashboard() {
     isReady,
     profileLog,
     setProfileLog,
-    records,
+    dashboardRecords,
     numberFormatter,
     setOld,
     setDays,
     setCurrency,
-    currency
+    currency,
   } = useText();
+
   const router = useRouter();
   ChartJS.register(ArcElement, Tooltip, Legend);
   useEffect(() => {
@@ -43,28 +46,104 @@ export default function Dashboard() {
     setDays(90);
   }, []);
 
-  const expenseSum =records
-    .filter((record)=>{
-      return record.type=='expense';
-    })
-    .reduce((sum, currentValue) => {
-      return sum + currentValue.amount;
-    }, 0) 
+  const currentMonth = format(new Date(), "yyyy-MM");
+  const prevMonth = format(new Date(), "MM") - 1;
+  // const previous
+  function previousMonth() {
+    if (prevMonth == 0) {
+      return 12;
+    } else {
+      return format(new Date(), "MM") - 1;
+    }
+  }
+  function previousYear() {
+    if (prevMonth == 0) {
+      return format(new Date(), "yyyy") - 1;
+    } else {
+      return format(new Date(), "yyyy");
+    }
+  }
+  console.log(`${previousYear()}-${previousMonth()}`);
 
-    const incomeSum =records
-    .filter((record)=>{
-      return record.type=='income';
+  // previous month income sum
+  const previousMonthIncome = dashboardRecords
+    .filter((record) => {
+      return record.type == "income";
+    })
+    .filter((record) => {
+      return (
+        format(record.date, "yyyy-MM") == `${previousYear()}-${previousMonth()}`
+      );
     })
     .reduce((sum, currentValue) => {
       return sum + currentValue.amount;
-    }, 0) 
+    }, 0);
+
+  // previous month expense sum
+  const previousMonthExpense = dashboardRecords
+    .filter((record) => {
+      return record.type == "expense";
+    })
+    .filter((record) => {
+      return (
+        format(record.date, "yyyy-MM") == `${previousYear()}-${previousMonth()}`
+      );
+    })
+    .reduce((sum, currentValue) => {
+      return sum + currentValue.amount;
+    }, 0);
+
+  // current month income sum
+  const currentMonthExpense = dashboardRecords
+    .filter((record) => {
+      return record.type == "expense";
+    })
+    .filter((record) => {
+      return format(record.date, "yyyy-MM") == currentMonth;
+    })
+    .reduce((sum, currentValue) => {
+      return sum + currentValue.amount;
+    }, 0);
+
+  // current month income sum
+  const currentMonthIncome = dashboardRecords
+    .filter((record) => {
+      return record.type == "income";
+    })
+    .filter((record) => {
+      return format(record.date, "yyyy-MM") == currentMonth;
+    })
+    .reduce((sum, currentValue) => {
+      return sum + currentValue.amount;
+    }, 0);
+
+  const incomeDiff =
+    ((currentMonthIncome - previousMonthIncome) / previousMonthIncome) * 100;
+  const expenseDiff =
+    ((currentMonthExpense - previousMonthExpense) / previousMonthExpense) * 100;
+  // Total Income
+  const totalIncome = dashboardRecords
+    .filter((record) => {
+      return record.type == "income";
+    })
+    .reduce((sum, currentValue) => {
+      return sum + currentValue.amount;
+    }, 0);
+  // Total Expense
+  const totalExpense = dashboardRecords
+    .filter((record) => {
+      return record.type == "expense";
+    })
+    .reduce((sum, currentValue) => {
+      return sum + currentValue.amount;
+    }, 0);
 
   if (isLoading) return <Loading />;
 
   if (!isReady) return <Loading />;
 
   return (
-    <main className="flex h-screen w-full bg-[#F3F4F6] flex-col">
+    <main className="flex h-full w-full bg-[#F3F4F6] flex-col">
       <HeaderDashboard />
       {addRecord && <AddRecord />}
       {addCat && <AddCategory />}
@@ -91,7 +170,10 @@ export default function Dashboard() {
               <p className="text-base font-normal text-white opacity-50 ">
                 Cash
               </p>
-              <p className="text-2xl font-semibold text-white">{numberFormatter.format(incomeSum-expenseSum)}{currency}</p>
+              <p className="text-2xl font-semibold text-white">
+                {numberFormatter.format(totalIncome - totalExpense)}
+                {currency}
+              </p>
             </div>
             <img
               className="h-[40.2px] absolute bottom-[20px] right-[20px]"
@@ -104,14 +186,28 @@ export default function Dashboard() {
               <p className="text-base font-semibold my-4">Your Income</p>
             </div>
             <div className="py-[20px] px-[24px] gap-4 flex flex-col">
-              <h3 className="text-black font-semibold text-4xl">{numberFormatter.format(incomeSum)}{currency}</h3>
+              <h3 className="text-black font-semibold text-4xl">
+                {numberFormatter.format(currentMonthIncome)}
+                {currency}
+              </h3>
               <p className="text-[#64748B] font-normal text-lg">
                 Your Income Amount
               </p>
               <div className="flex items-center gap-2">
-                <img className="h-6 w-6" src="/growth.png" />
+                <div
+                  className="flex items-center justify-center rounded-full h-6 w-6 bg-orange-400"
+                  style={{
+                    backgroundColor: incomeDiff > 0 ? "#84CC16" : "#F54949",
+                  }}
+                >
+                  <FaArrowUp
+                    fill="#fff"
+                    size={12}
+                    style={{ rotate: incomeDiff > 0 ? "0deg" : "180deg" }}
+                  />
+                </div>
                 <p className="text-lg font-normal text-black">
-                  32% from last month
+                  {numberFormatter.format(incomeDiff)}% from last month
                 </p>
               </div>
             </div>
@@ -123,15 +219,27 @@ export default function Dashboard() {
             </div>
             <div className="py-[20px] px-[24px] gap-4 flex flex-col">
               <h3 className="text-black font-semibold text-4xl">
-                {numberFormatter.format(expenseSum)}{currency}
+                {numberFormatter.format(currentMonthExpense)}
+                {currency}
               </h3>
               <p className="text-[#64748B] font-normal text-lg">
-                Your Income Amount
+                Your Expense Amount
               </p>
               <div className="flex items-center gap-2">
-                <img className="h-6 w-6 rotate-180" src="/growth.png" />
+                <div
+                  className="flex items-center justify-center rounded-full h-6 w-6 bg-orange-400"
+                  style={{
+                    backgroundColor: expenseDiff > 0 ? "#F54949" : "#84CC16",
+                  }}
+                >
+                  <FaArrowUp
+                    fill="#fff"
+                    size={12}
+                    style={{ rotate: expenseDiff > 0 ? "0deg" : "180deg" }}
+                  />
+                </div>
                 <p className="text-lg font-normal text-black">
-                  32% from last month
+                  {numberFormatter.format(expenseDiff)}% from last month
                 </p>
               </div>
             </div>
@@ -155,7 +263,7 @@ export default function Dashboard() {
               </p>
             </div>
             <div className="py-[20px] px-[24px] gap-4 flex flex-col">
-              <DoughnutChart/>
+              <DoughnutChart />
             </div>
           </div>
         </div>
