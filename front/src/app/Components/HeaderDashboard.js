@@ -16,7 +16,8 @@ export function HeaderDashboard() {
   }
 
   return (
-    <nav className="flex w-full justify-between py-4 md:px-[120px] px-[40px] bg-white h-[72px]">
+    <nav className="flex w-full justify-between py-4 md:px-[120px] px-[40px] bg-white h-[72px] ">
+      <div className="w-full max-w-[1200px] m-auto flex justify-between">
       <div className="nav-left flex md:flex-row flex-col md:gap-6 gap-1 items-left md:items-center">
         <img
           onClick={() => {
@@ -71,6 +72,7 @@ export function HeaderDashboard() {
             handleProfileLog()
           }} className="w-full pt-2 flex items-center justify-center border-t border-[#D1D5DB]">Log Out</p>
         </div>}
+      </div>
       </div>
     </nav>
   );

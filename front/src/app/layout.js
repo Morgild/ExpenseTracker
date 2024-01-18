@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="max-w-[1440px] m-auto">
+      <body className="">
         <AuthProvider>{children}</AuthProvider>
         <ToastContainer />
       </body>

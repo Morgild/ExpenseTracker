@@ -50,7 +50,7 @@ export default function Records() {
         onClick={() => {
           setProfileLog(false);
         }}
-        className="w-full gap-6 flex md:px-[120px] px-[40px] py-[32px]"
+        className="w-full gap-6 flex md:px-[120px] px-[40px] py-[32px] max-w-[1440px] m-auto"
       >
         <aside className="hidden w-4/12 bg-[#F9FAFB] border border-solid border-[#E5E7EB] md:flex flex-col rounded-xl py-6 px-4 gap-6">
           <div className="flex flex-col gap-6">

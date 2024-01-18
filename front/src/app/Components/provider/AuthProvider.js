@@ -296,6 +296,7 @@ export function AuthProvider({ children }) {
   // Sign-Out
   const signOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("currency");
     setIsLoggedIn(false);
     router.push("/");
   };
@@ -312,6 +313,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     setIsReady(false);
+    getRecords();
+    getCategories();
     const token = localStorage.getItem("token");
     setCurrency(localStorage.getItem("currency"));
     if (token) {
@@ -323,11 +326,11 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     getCategories();
     getRecords();
-  }, [refresh]);
+  }, [refresh,currency]);
 
   return (
     <div lang="en">
-      <div>
+      <div className=" ">
         <TextContext.Provider
           value={{
             numberFormatter,

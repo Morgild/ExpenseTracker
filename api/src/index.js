@@ -140,7 +140,7 @@ app.post("/category", async (req, res) => {
   if (!authorization) {
     return res.status(401).json({ message: "Unauthorized1" });
   }
-  const categoryExist = await Category.find({ category: category });
+  const categoryExist = await Category.find({ category: category, userId:id });
 
   if (categoryExist.length) {
     return res.json({ message: `CATEGORY already EXIST` });

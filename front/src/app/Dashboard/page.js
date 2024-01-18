@@ -151,7 +151,7 @@ export default function Dashboard() {
         onClick={() => {
           setProfileLog(false);
         }}
-        className="md:px-[120px] px-[40px] py-[32px]"
+        className="md:px-[120px] px-[40px] py-[32px]  max-w-[1440px] w-full m-auto"
       >
         <div className="Total cards grid sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-6">
           <div className="w-full relative bg-[#0166FF] rounded-[18px] h-[219.66px] overflow-hidden">

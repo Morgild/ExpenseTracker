@@ -8,12 +8,8 @@ export function AddRecord() {
   const {
     setAddRecord,
     expense,
-    setExpense,
     changeExpense,
-    addCat,
     setAddCat,
-    categories,
-    setCategories,
     getCategories,
     getRecords,
     dropCategory,
@@ -21,11 +17,8 @@ export function AddRecord() {
     dropDownCategory,
     addNewRecord,
     addNewCategory,
-    setAddNewCategory,
     categoryColor,
-    setCategoryColor,
     iconName,
-    setIconName,
   } = useText();
   return (
     <div className="flex justify-center items-center">

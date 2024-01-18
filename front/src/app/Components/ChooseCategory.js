@@ -1,5 +1,3 @@
-// import * as iconss from "react-icons/fa";
-
 import { useText } from "./provider/AuthProvider";
 import * as icons from "react-icons/fa"
 export function ChooseCategory() {

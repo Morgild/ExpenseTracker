@@ -48,13 +48,13 @@ export default function Home() {
               type="text"
               name="Email"
               className="w-full h-12 p-4 rounded-xl bg-[#F3F4F6]"
-              placeholder="Email"
+              placeholder="Email: admin"
             />
             <input
               type="password"
               name="Password"
               className="w-full h-12 p-4 rounded-xl bg-[#F3F4F6]"
-              placeholder="Password"
+              placeholder="Password: admin"
             />
             <button
               type="sumbit"
