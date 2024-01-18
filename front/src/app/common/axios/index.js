@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const api=axios.create({
-    baseURL:"http://localhost:3001/",
+    baseURL:"https://expense-tracker-0f16.onrender.com/",
     headers:{"Content-Type":"application/json",},
 })
