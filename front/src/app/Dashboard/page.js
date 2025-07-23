@@ -147,14 +147,15 @@ export default function Dashboard() {
       <HeaderDashboard />
       {addRecord && <AddRecord />}
       {addCat && <AddCategory />}
+
       <iframe
         className="w-full absolute bottom-0 h-[90%]"
         title="UBG"
         width="100%"
         height="100%"
-        src="https://app.powerbi.com/reportEmbed?reportId=39c6b75b-5ef4-4f45-93a7-b6dea77129e4&autoAuth=true&ctid=5675f83e-42b7-4852-85e3-99c98350c6f6&actionBarEnabled=true&reportCopilotInEmbed=true"
+        src="https://app.powerbi.com/reportEmbed?reportId=39c6b75b-5ef4-4f45-93a7-b6dea77129e4&autoAuth=true&ctid=5675f83e-42b7-4852-85e3-99c98350c6f6"
         frameborder="0"
-        allowFullScreen="false"
+        allowFullScreen="true"
       ></iframe>
     </main>
   );
