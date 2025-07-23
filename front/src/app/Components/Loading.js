@@ -7,7 +7,7 @@ export function Loading() {
           <img className="h-[80px]" src="/group.png" />
         </div>
         <div className="flex flex-col gap-4 justify-center items-center ">
-          <img className="w-8 h-8 animate-spin" src="/loading.png" />
+          <img className="w-8 h-8 animate-spin" src="/uniform.png" />
           <p className="font-semibold text-base text-[#0F172A]">
             Түр хүлээнэ үү...
           </p>

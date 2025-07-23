@@ -23,7 +23,7 @@ export default function Home() {
       <div className="bg-white  md:w-1/2 w-full h-screen flex flex-col items-center justify-center">
         <div className="flex max-w-[30%] min-w-[200px] flex-col gap-[40px]">
           <Link href={"/"}>
-            <div className="m-auto w-full flex items-center justify-center h-[50px] w-[120px] gap-[9.46px] p-[5.4px]">
+            <div className="m-auto w-full flex items-center justify-center h-[30px] w-[60px] gap-[9.46px] p-[5.4px]">
               <img className="object-contain" src="/uniform.png" />
             </div>
           </Link>

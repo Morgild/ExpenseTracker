@@ -22,7 +22,7 @@ export function HeaderDashboard() {
   }
 
   return (
-    <nav className="flex w-full justify-between   md:px-[120px] px-1 bg-[#0166FF] ">
+    <nav className="flex w-full justify-between   md:px-[120px] px-1 bg-gray-500 ">
       <div className="w-full max-w-[1400px] m-auto flex justify-between">
         <div className="nav-left max-h-[70px] flex md:flex-row flex-col md:gap-6 gap-1 items-left md:items-center select-none">
           <img
