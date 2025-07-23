@@ -148,151 +148,23 @@ export default function Dashboard() {
       {addRecord && <AddRecord />}
       {addCat && <AddCategory />}
       <iframe
-        style={{
-          overflow: "hidden",
-          position: "absolute",
-          top: "0px",
-          left: "0px",
-          right: "0px",
-          bottom: "0px",
-          width: "100%",
-          height: "100%",
-        }}
+        // style={{
+        //   overflow: "hidden",
+        //   position: "relative",
+        //   // top: "0px",
+        //   left: "0px",
+        //   right: "0px",
+        //   bottom: "0px",
+        //   width: "100%",
+        //   height: "100%",
+        // }}
+        className="w-full absolute bottom-0 h-[90%]"
         title="Monartex"
-        // width="100%"
-        // height="100%"
+        width="100%"
+        height="100%"
         src="https://app.powerbi.com/reportEmbed?reportId=5e4bbb3b-8392-46a6-8d22-e8f17b751a92&autoAuth=true&ctid=abde62c4-46fa-4bd7-9585-391b26488815"
-        // allowFullScreen={false}
+        allowFullScreen={false}
       ></iframe>
-      {/* <section
-        onClick={() => {
-          setProfileLog(false);
-        }}
-        className="md:px-[120px] px-[40px] py-[32px]  max-w-[1440px] w-full m-auto"
-      >
-        <div className="Total cards grid sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-6">
-          <div className="w-full relative bg-[#0166FF] rounded-[18px] h-[219.66px] overflow-hidden">
-            <div className="absolute z-[5]">
-              <img
-                className="mt-8 z-3 ml-8 h-[29.86px]"
-                src="/logo-white.png"
-              />
-            </div>
-            <img className="w-full h-full absolute top-[0]" src="/cardbg.png" />
-            <img
-              className="h-[100%] w-[80%] object-fill absolute right-0 bottom-[-10%]"
-              src="/Shape.png"
-            />
-            <div className="absolute left-8 bottom-8">
-              <p className="text-base font-normal text-white opacity-50 ">
-                Cash
-              </p>
-              <p className="text-2xl font-semibold text-white">
-                {numberFormatter.format(totalIncome - totalExpense)}
-                {currency}
-              </p>
-            </div>
-            <img
-              className="h-[40.2px] absolute bottom-[20px] right-[20px]"
-              src="/wifi.png"
-            />
-          </div>
-          <div className="w-full  bg-white rounded-[18px] h-[219.66px] overflow-hidden">
-            <div className="flex items-center gap-2 border-b border-[#E2E8F0] border-solid">
-              <div className="w-2 h-2 bg-[#84CC16] rounded-full ml-6"></div>
-              <p className="text-base font-semibold my-4">Your Income</p>
-            </div>
-            <div className="py-[20px] px-[24px] gap-4 flex flex-col">
-              <h3 className="text-black font-semibold text-4xl">
-                {numberFormatter.format(currentMonthIncome)}
-                {currency}
-              </h3>
-              <p className="text-[#64748B] font-normal text-lg">
-                Your Income Amount
-              </p>
-              <div className="flex items-center gap-2">
-                <div
-                  className="flex items-center justify-center rounded-full h-6 w-6 bg-orange-400"
-                  style={{
-                    backgroundColor: incomeDiff > 0 ? "#84CC16" : "#F54949",
-                  }}
-                >
-                  <FaArrowUp
-                    fill="#fff"
-                    size={12}
-                    style={{ rotate: incomeDiff > 0 ? "0deg" : "180deg" }}
-                  />
-                </div>
-                <p className="text-lg font-normal text-black">
-                  {numberFormatter.format(incomeDiff)}% from last month
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full  bg-white rounded-[18px] h-[219.66px] overflow-hidden">
-            <div className="flex items-center gap-2 border-b border-[#E2E8F0] border-solid">
-              <div className="w-2 h-2 bg-[#0166FF] rounded-full ml-6"></div>
-              <p className="text-base font-semibold my-4">Total Expenses</p>
-            </div>
-            <div className="py-[20px] px-[24px] gap-4 flex flex-col">
-              <h3 className="text-black font-semibold text-4xl">
-                {numberFormatter.format(currentMonthExpense)}
-                {currency}
-              </h3>
-              <p className="text-[#64748B] font-normal text-lg">
-                Your Expense Amount
-              </p>
-              <div className="flex items-center gap-2">
-                <div
-                  className="flex items-center justify-center rounded-full h-6 w-6 bg-orange-400"
-                  style={{
-                    backgroundColor: expenseDiff > 0 ? "#F54949" : "#84CC16",
-                  }}
-                >
-                  <FaArrowUp
-                    fill="#fff"
-                    size={12}
-                    style={{ rotate: expenseDiff > 0 ? "0deg" : "180deg" }}
-                  />
-                </div>
-                <p className="text-lg font-normal text-black">
-                  {numberFormatter.format(expenseDiff)}% from last month
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="IncomeExpense max-h-[300px] mt-6 grid md:grid-cols-2 grid-cols-1 gap-6">
-          <div className="w-full  bg-white rounded-[12px]">
-            <div className="flex items-center gap-2 border-b border-[#E2E8F0] border-solid">
-              <p className="text-base font-semibold my-4 ml-6">
-                Income-Expense
-              </p>
-            </div>
-            <div className="px-[24px] gap-4 flex flex-col w-full">
-              <BarChart />
-            </div>
-          </div>
-          <div className="w-full  bg-white rounded-[12px] ">
-            <div className="flex items-center gap-2 border-b border-[#E2E8F0] border-solid">
-              <p className="text-base font-semibold my-4 ml-6">
-                Expense by Category
-              </p>
-            </div>
-            <div className="py-[20px] px-[24px] gap-4 flex flex-col">
-              <DoughnutChart />
-            </div>
-          </div>
-        </div>
-        <div className="w-full mt-[24px]  bg-white rounded-[12px] overflow-hidden">
-          <div className="flex items-center gap-2 border-b border-[#E2E8F0] border-solid">
-            <p className="text-base font-semibold my-4 ml-6">Last Records</p>
-          </div>
-          <div className="px-6 pb-6 flex flex-col">
-            <DashboardRecords />
-          </div>
-        </div>
-      </section> */}
     </main>
   );
 }

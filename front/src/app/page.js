@@ -21,10 +21,10 @@ export default function Home() {
   return (
     <main className="flex">
       <div className="bg-white  md:w-1/2 w-full h-screen flex flex-col items-center justify-center">
-        <div className="flex max-w-[200px] flex-col gap-[40px]">
+        <div className="flex max-w-[30%] min-w-[200px] flex-col gap-[40px]">
           <Link href={"/"}>
             <div className="m-auto w-full flex items-center justify-center h-[50px] w-[120px] gap-[9.46px] p-[5.4px]">
-              <img className="object-contain" src="/group.png" />
+              <img className="object-contain" src="/uniform.png" />
             </div>
           </Link>
           <div className="flex flex-col gap-2">
@@ -44,47 +44,32 @@ export default function Home() {
                 event.target.Password.value
               );
             }}
-            className="flex flex-col gap-4"
+            className="flex flex-col gap-4 w-full"
           >
             <input
               type="text"
               name="Email"
               className="w-full h-12 p-4 rounded-xl bg-[#F3F4F6]"
-              placeholder="Email: admin"
+              placeholder="Insert your e-mail"
             />
             <input
               type="password"
               name="Password"
               className="w-full h-12 p-4 rounded-xl bg-[#F3F4F6]"
-              placeholder="Password: admin"
+              placeholder="Insert your password"
             />
             <button
               type="sumbit"
               className="w-full h-12 bg-[#0166FF] rounded-[20px] gap-1 text-white text-xl font-normal"
             >
-              Log in
+              Sign in
             </button>
           </form>
         </div>
       </div>
-      <div className="bg-[#0166FF] md:w-1/2 hidden md:flex h-screen text-white  grid grid-rows-3 grid-cols-2 gap-3 items-center justify-center cursor pointer">
-        <div>
-          <img className="cursor-pointer w-[120px]" src="/w-jeans.png" />
-        </div>
-        <div>
-          <img className="cursor-pointer w-[120px]" src="/w-factory.png" />
-        </div>
-        <div>
-          <img className="cursor-pointer w-[120px]" src="/w-moda.png" />
-        </div>
+      <div className="bg-[#0166FF] md:w-1/2 hidden md:flex h-screen text-white  grid grid-rows-3 grid-cols-2 gap-3 items-center justify-center ">
         <div>
           <img className="cursor-pointer w-[120px]" src="/w-uniform.png" />
-        </div>
-        <div>
-          <img className="cursor-pointer w-[120px]" src="/w-business.png" />
-        </div>
-        <div>
-          <img className="cursor-pointer w-[120px]" src="/w-shop.png" />
         </div>
       </div>
     </main>
