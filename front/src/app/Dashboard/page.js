@@ -148,22 +148,13 @@ export default function Dashboard() {
       {addRecord && <AddRecord />}
       {addCat && <AddCategory />}
       <iframe
-        // style={{
-        //   overflow: "hidden",
-        //   position: "relative",
-        //   // top: "0px",
-        //   left: "0px",
-        //   right: "0px",
-        //   bottom: "0px",
-        //   width: "100%",
-        //   height: "100%",
-        // }}
         className="w-full absolute bottom-0 h-[90%]"
-        title="Monartex"
+        title="UBG"
         width="100%"
         height="100%"
-        src="https://app.powerbi.com/reportEmbed?reportId=5e4bbb3b-8392-46a6-8d22-e8f17b751a92&autoAuth=true&ctid=abde62c4-46fa-4bd7-9585-391b26488815"
-        allowFullScreen={false}
+        src="https://app.powerbi.com/reportEmbed?reportId=39c6b75b-5ef4-4f45-93a7-b6dea77129e4&autoAuth=true&ctid=5675f83e-42b7-4852-85e3-99c98350c6f6&actionBarEnabled=true&reportCopilotInEmbed=true"
+        frameborder="0"
+        allowFullScreen="false"
       ></iframe>
     </main>
   );
