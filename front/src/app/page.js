@@ -8,25 +8,23 @@ import { Loading } from "./Components/Loading";
 
 export default function Home() {
   const router = useRouter();
-  const { signIn,isLoading,setIsLoading } = useText();
-  
-  useEffect(() => {
+  const { signIn, isLoading, setIsLoading } = useText();
 
+  useEffect(() => {
     fetch("http://localhost:3001")
       .then((response) => response.text())
       .then((data) => console.log(data));
   }, []);
-  if(isLoading){
-    return <Loading/>
+  if (isLoading) {
+    return <Loading />;
   }
   return (
     <main className="flex">
       <div className="bg-white  md:w-1/2 w-full h-screen flex flex-col items-center justify-center">
         <div className="flex max-w-[384px] flex-col gap-[40px]">
           <Link href={"/"}>
-            <div className="m-auto w-full flex items-center justify-center max-h-[34.31px] max-w-[92.34px] gap-[9.46px] p-[5.4px]">
-              <img className="object-contain max-h-[34.31px] max-w-[92.34px]" src="/logo.png" />
-              <img className="object-contain max-h-[34.31px] max-w-[92.34px]" src="/Geld.png" />
+            <div className="m-auto w-full flex items-center justify-center h-[50px] w-[120px] gap-[9.46px] p-[5.4px]">
+              <img className="object-contain" src="/group.png" />
             </div>
           </Link>
           <div className="flex flex-col gap-2">
@@ -63,23 +61,35 @@ export default function Home() {
               Log in
             </button>
           </form>
-          <div className="flex m-auto text-normal text-base items-center  ">
+          {/* <div className="flex m-auto text-normal text-base items-center  ">
             <p className="text-[#0F172A]">Do not have account?</p>
             <Link href={"/Signup"}>
               <button className="text-[#0166FF] px-3 py-1 flex gap-1 bg-white">
                 Sign up
               </button>
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
-      <div
-       
-        className="bg-[#0166FF] md:w-1/2 hidden md:flex h-screen text-white flex items-center justify-center cursor pointer"
-      >
-        <img  onClick={() => {
-          router.push("/Dashboard");
-        }} className="cursor-pointer" src="/logo-white.png"/>
+      <div className="bg-[#0166FF] md:w-1/2 hidden md:flex h-screen text-white  grid grid-rows-3 grid-cols-2 gap-3 items-center justify-center cursor pointer">
+        <div>
+          <img className="cursor-pointer w-[120px]" src="/w-jeans.png" />
+        </div>
+        <div>
+          <img className="cursor-pointer w-[120px]" src="/w-factory.png" />
+        </div>
+        <div>
+          <img className="cursor-pointer w-[120px]" src="/w-moda.png" />
+        </div>
+        <div>
+          <img className="cursor-pointer w-[120px]" src="/w-uniform.png" />
+        </div>
+        <div>
+          <img className="cursor-pointer w-[120px]" src="/w-business.png" />
+        </div>
+        <div>
+          <img className="cursor-pointer w-[120px]" src="/w-shop.png" />
+        </div>
       </div>
     </main>
   );
