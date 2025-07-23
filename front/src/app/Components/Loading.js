@@ -4,10 +4,10 @@ export function Loading() {
       <div className="flex flex-col gap-12">
         <div className="flex items-center justify-center w-[172.23px] p-[10px] gap-[17.64px]">
           {/* <img className="h-[43.84px]" src="/logo.png" /> */}
-          <img className="h-[80px]" src="/group.png" />
+          <img className="h-[80px]" src="/uniform.png" />
         </div>
         <div className="flex flex-col gap-4 justify-center items-center ">
-          <img className="w-8 h-8 animate-spin" src="/uniform.png" />
+          <img className="w-8 h-8 animate-spin" src="/loading.png" />
           <p className="font-semibold text-base text-[#0F172A]">
             Түр хүлээнэ үү...
           </p>

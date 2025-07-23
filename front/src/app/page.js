@@ -23,14 +23,14 @@ export default function Home() {
       <div className="bg-white  md:w-1/2 w-full h-screen flex flex-col items-center justify-center">
         <div className="flex max-w-[30%] min-w-[200px] flex-col gap-[40px]">
           <Link href={"/"}>
-            <div className="m-auto w-full flex items-center justify-center h-[30px] w-[60px] gap-[9.46px] p-[5.4px]">
+            <div className="m-auto w-full flex items-center justify-center h-[30px] w-[60px] gap-[9.46px] p-[5.4px] select-none">
               <img
                 className="object-contain w-[120px] h-[60px]"
                 src="/uniform.png"
               />
             </div>
           </Link>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 select-none">
             <h2 className="m-auto text-2xl text-[#0F172A] font-semibold">
               Welcome Back
             </h2>
