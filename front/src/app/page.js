@@ -11,7 +11,7 @@ export default function Home() {
   const { signIn, isLoading, setIsLoading } = useText();
 
   useEffect(() => {
-    fetch("http://localhost:3001")
+    fetch("https://expense-tracker-0f16.onrender.com")
       .then((response) => response.text())
       .then((data) => console.log(data));
   }, []);
@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <main className="flex">
       <div className="bg-white  md:w-1/2 w-full h-screen flex flex-col items-center justify-center">
-        <div className="flex max-w-[384px] flex-col gap-[40px]">
+        <div className="flex max-w-[200px] flex-col gap-[40px]">
           <Link href={"/"}>
             <div className="m-auto w-full flex items-center justify-center h-[50px] w-[120px] gap-[9.46px] p-[5.4px]">
               <img className="object-contain" src="/group.png" />
@@ -39,6 +39,10 @@ export default function Home() {
             onSubmit={(event) => {
               event.preventDefault();
               signIn(event.target.Email.value, event.target.Password.value);
+              console.log(
+                event.target.Email.value,
+                event.target.Password.value
+              );
             }}
             className="flex flex-col gap-4"
           >
@@ -61,14 +65,6 @@ export default function Home() {
               Log in
             </button>
           </form>
-          {/* <div className="flex m-auto text-normal text-base items-center  ">
-            <p className="text-[#0F172A]">Do not have account?</p>
-            <Link href={"/Signup"}>
-              <button className="text-[#0166FF] px-3 py-1 flex gap-1 bg-white">
-                Sign up
-              </button>
-            </Link>
-          </div> */}
         </div>
       </div>
       <div className="bg-[#0166FF] md:w-1/2 hidden md:flex h-screen text-white  grid grid-rows-3 grid-cols-2 gap-3 items-center justify-center cursor pointer">
