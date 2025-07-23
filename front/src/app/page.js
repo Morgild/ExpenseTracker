@@ -25,7 +25,7 @@ export default function Home() {
           <Link href={"/"}>
             <div className="m-auto w-full flex items-center justify-center h-[30px] w-[60px] gap-[9.46px] p-[5.4px]">
               <img
-                className="object-contain w-[60px] h-[30px]"
+                className="object-contain w-[120px] h-[60px]"
                 src="/uniform.png"
               />
             </div>
