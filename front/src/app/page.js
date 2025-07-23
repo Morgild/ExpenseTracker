@@ -67,7 +67,7 @@ export default function Home() {
           </form>
         </div>
       </div>
-      <div className="bg-[#0166FF] md:w-1/2 hidden md:flex h-screen text-white  grid grid-rows-3 grid-cols-2 gap-3 items-center justify-center ">
+      <div className="bg-[#0166FF] md:w-1/2 hidden md:flex h-screen text-white  grid grid-rows-3 grid-cols-2 gap-3 items-center justify-center select-none">
         <div>
           <img className="cursor-pointer w-[120px]" src="/w-uniform.png" />
         </div>
