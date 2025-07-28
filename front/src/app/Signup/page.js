@@ -116,15 +116,11 @@ export default function Signup() {
       <div className="bg-white md:w-1/2 w-full h-screen flex flex-col items-center justify-center">
         <div className="flex max-w-[384px] flex-col gap-[40px]">
           <Link href={"/"}>
-            <div className="m-auto w-full flex items-center justify-center max-h-[34.31px] max-w-[92.34px] gap-[9.46px] p-[5.4px]">
+            <div className="m-auto w-full flex items-center justify-center h-[30px] w-[60px] gap-[9.46px] p-[5.4px] select-none">
               <img
-                className="object-contain max-h-[34.31px] max-w-[92.34px]"
+                className="object-contain w-[120px] h-[60px]"
                 src="/uniform.png"
               />
-              {/* <img
-                className="object-contain max-h-[34.31px] max-w-[92.34px]"
-                src="/Geld.png"
-              /> */}
             </div>
           </Link>
           <div className="flex flex-col gap-2">
@@ -276,12 +272,12 @@ export default function Signup() {
           </div>
         </div>
       </div>
-      <div className="bg-[#0166FF] md:w-1/2 hidden md:flex h-screen cursor-pointer text-white flex items-center justify-center">
+      <div className="bg-[#0166FF] md:w-1/2 hidden md:flex h-screen text-white  grid grid-rows-3 grid-cols-2 gap-3 items-center justify-center select-none">
         <img
           onClick={() => {
             router.push("/Dashboard");
           }}
-          className="cursor-pointer"
+          className="cursor-pointer w-[120px]"
           src="/w-uniform.png"
         />
       </div>
