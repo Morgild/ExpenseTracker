@@ -8,8 +8,17 @@ import { useText } from "../Components/provider/AuthProvider";
 import { toast } from "react-toastify";
 
 export default function Signup() {
-
-  const { signUp,name,email,pass,repass,setName,setEmail,setPass,setRepass } = useText();
+  const {
+    signUp,
+    name,
+    email,
+    pass,
+    repass,
+    setName,
+    setEmail,
+    setPass,
+    setRepass,
+  } = useText();
   const router = useRouter();
   function isNameValid(name) {
     if (name.length < 1) {
@@ -87,8 +96,8 @@ export default function Signup() {
   }
 
   function isRepasswordSimilar(password, repassword) {
-    if(repassword.length==0){
-      return "Please re-enter same password"
+    if (repassword.length == 0) {
+      return "Please re-enter same password";
     }
     if (password == repassword) {
       return true;
@@ -110,45 +119,57 @@ export default function Signup() {
             <div className="m-auto w-full flex items-center justify-center max-h-[34.31px] max-w-[92.34px] gap-[9.46px] p-[5.4px]">
               <img
                 className="object-contain max-h-[34.31px] max-w-[92.34px]"
-                src="/logo.png"
+                src="/uniform.png"
               />
-              <img
+              {/* <img
                 className="object-contain max-h-[34.31px] max-w-[92.34px]"
                 src="/Geld.png"
-              />
+              /> */}
             </div>
           </Link>
           <div className="flex flex-col gap-2">
             <h2 className="m-auto text-2xl text-[#0F172A] font-semibold">
-              Create Geld account
+              Create new account
             </h2>
-            <p className="m-auto font-normal text-base text-[#331455]">
-              Sign up below to create your Wallet account
-            </p>
           </div>
           <form
             onSubmit={(event) => {
               event.preventDefault();
-                if (name * email * pass * repass==1){
-                      setName(event.target.Name.value);
-                      setEmail(event.target.Email.value);
-                      setPass(event.target.Password.value);
-                      router.push('/Signup/Settings')
-                    };
-                      
-                  if(name != true)
-                  {toast.warn(`${isNameValid(event.target.Name.value)}`, {
-                      position: "top-right",
-                      autoClose: 3000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "light",
-                    })}
-                   if(email != true)
-                  {toast.warn(`${emailValidation(event.target.Email.value)}`, {
+              if (name * email * pass * repass == 1) {
+                setName(event.target.Name.value);
+                setEmail(event.target.Email.value);
+                setPass(event.target.Password.value);
+                router.push("/Signup/Settings");
+              }
+
+              if (name != true) {
+                toast.warn(`${isNameValid(event.target.Name.value)}`, {
+                  position: "top-right",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              }
+              if (email != true) {
+                toast.warn(`${emailValidation(event.target.Email.value)}`, {
+                  position: "top-right",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              }
+              if (pass != true) {
+                toast.warn(
+                  `${passwordValidation(event.target.Password.value)}`,
+                  {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -157,32 +178,29 @@ export default function Signup() {
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-                    })}
-                  if(pass != true)
-                  {toast.warn(`${passwordValidation(event.target.Password.value)}`, {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    })}
-                  
-                  if(repass != true)
-                  {toast.error(`${isRepasswordSimilar(event.target.Password.value, event.target.Repassword.value)}`, {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    })
                   }
-                  // name * email * pass * repass == 1?router.push('/Signup/Settings')
+                );
+              }
+
+              if (repass != true) {
+                toast.error(
+                  `${isRepasswordSimilar(
+                    event.target.Password.value,
+                    event.target.Repassword.value
+                  )}`,
+                  {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  }
+                );
+              }
+              // name * email * pass * repass == 1?router.push('/Signup/Settings')
             }}
             className="relative flex flex-col gap-4"
           >
@@ -264,7 +282,7 @@ export default function Signup() {
             router.push("/Dashboard");
           }}
           className="cursor-pointer"
-          src="/logo-white.png"
+          src="/w-uniform.png"
         />
       </div>
     </main>
