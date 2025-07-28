@@ -29,7 +29,7 @@ app.post("/sign-up", async (req, res) => {
   const userExist = await User.find({ email: email });
 
   if (userExist.length) {
-    return res.json({ message: `USER already EXIST` });
+    return res.json({ message: `Хэрэглэгч бүртгэгдсэн байна` });
   }
 
   await User.create({
@@ -40,7 +40,7 @@ app.post("/sign-up", async (req, res) => {
     updatedAt: new Date(),
     createdAt: new Date(),
   });
-  res.json({ message: "User created successfully" });
+  res.json({ message: "Хэрэглэгч амжилттай бүртгэгдлээ" });
 });
 
 app.post("/sign-in", async (req, res) => {
@@ -49,7 +49,7 @@ app.post("/sign-in", async (req, res) => {
   const user = await User.findOne({ email: email, password: password });
 
   if (!user) {
-    return res.status(401).json({ message: "Sign-in unauthorized" });
+    return res.status(401).json({ message: "Амжилтгүй нэвтрэлт" });
   }
 
   const id = user._id;
@@ -60,7 +60,7 @@ app.post("/sign-in", async (req, res) => {
   return res.json({
     token,
     currency,
-    message: "Logged in suceessfully",
+    message: "Амжилттай нэвтэрлээ",
   });
   res.status(500).send({ message: "Invalid credientials" });
 });
