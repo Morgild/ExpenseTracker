@@ -4,16 +4,9 @@ import { useText } from "./provider/AuthProvider";
 
 export function HeaderDashboard() {
   const router = useRouter();
-  const {
-    setAddRecord,
-    isDbActive,
-    setIsDbActive,
-    signOut,
-    profileLog,
-    setProfileLog,
-    handleProfileLog,
-  } = useText();
+  const { setIsDbActive, signOut, handleProfileLog, currency } = useText();
   const pathname = usePathname();
+  const division = ["Tender", "Corporate", "Education"];
 
   if (pathname.includes("Dashboard")) {
     setIsDbActive(true);
@@ -22,17 +15,29 @@ export function HeaderDashboard() {
   }
 
   return (
-    <nav className="flex w-full justify-between   md:px-[120px] px-1 bg-gray-500 ">
-      <div className="w-full max-w-[1400px] m-auto flex justify-between">
-        <div className="nav-left max-h-[70px] flex md:flex-row flex-col md:gap-6 gap-1 items-left md:items-center select-none">
-          <img
-            // onClick={() => {
-            //   router.push("/"), setIsDbActive(true);
-            // }}
-            className="h-[80%] hidden md:flex cursor-pointer"
-            src="/w-uniform.png"
-          />
+    <nav className="flex w-full justify-between   md:px-[120px] px-1 bg-gray-500 select-none ">
+      <div className="w-full max-w-[1400px] m-auto flex items-center">
+        <img
+          onClick={() => {
+            router.push("/Dashboard");
+          }}
+          className="h-1/4 w-[8%] hidden md:flex cursor-pointer"
+          src="/w-uniform.png"
+        />
+
+        <div className="flex gap-10 w-full items-center flex-auto justify-center hover">
+          {division.map((item, index) => (
+            <p
+              onClick={() => {
+                router.push(item);
+              }}
+              className="flex items-center py-2 px-4 cursor-pointer select-none hover:bg-gray-200 rounded-md bg-white"
+            >
+              {item}
+            </p>
+          ))}
         </div>
+
         <div className="nav-right relative flex items-center gap-6">
           <button
             onClick={() => {

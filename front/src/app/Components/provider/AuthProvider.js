@@ -131,9 +131,9 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     try {
       const { data } = await api.post("/sign-in", { email, password });
-      const { token, currency } = data;
-      console.log(token);
+      const { token, currency, role } = data;
       setCurrency(currency);
+
       localStorage.setItem("token", token);
       localStorage.setItem("currency", currency);
 
@@ -297,6 +297,7 @@ export function AuthProvider({ children }) {
   const signOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("currency");
+    localStorage.removeItem("role");
     setIsLoggedIn(false);
     router.push("/");
   };
@@ -326,7 +327,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     getCategories();
     getRecords();
-  }, [refresh,currency]);
+  }, [refresh, currency]);
 
   return (
     <div lang="en">
