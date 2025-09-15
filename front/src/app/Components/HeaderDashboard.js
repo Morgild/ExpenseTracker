@@ -6,7 +6,7 @@ export function HeaderDashboard() {
   const router = useRouter();
   const { setIsDbActive, signOut, handleProfileLog, currency } = useText();
   const pathname = usePathname();
-  const division = ["Tender", "Corporate", "Education"];
+  const division = ["Uniform", "Business"];
 
   if (pathname.includes("Dashboard")) {
     setIsDbActive(true);
