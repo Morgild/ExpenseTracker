@@ -19,13 +19,13 @@ export default function Dashboard() {
   if (!isReady) return <Loading />;
 
   return (
-    <main className="flex h-full w-full bg-[#F3F4F6] flex-col">
-      <div className="flex ">
+    <main className="flex h-full w-full bg-black flex-col">
+      <div className="flex">
         <div
           onClick={() => {
             router.push("/Uniform");
           }}
-          className="bg-[#FCA90D] cursor-pointer md:w-1/2 hidden md:flex h-screen text-white  grid grid-rows-3 grid-cols-2 gap-3 items-center justify-center select-none"
+          className="bg-[#FCA90D] cursor-pointer w-1/2 w-1/2 flex flex-row h-screen text-white gap-3 items-center justify-center select-none"
         >
           <div>
             <img className="w-[120px]" src="/w-uniform.png" />
@@ -35,7 +35,7 @@ export default function Dashboard() {
           onClick={() => {
             router.push("/Business");
           }}
-          className="bg-[#0166FF] cursor-pointer md:w-1/2 hidden md:flex h-screen text-white  grid grid-rows-3 grid-cols-2 gap-3 items-center justify-center select-none"
+          className="bg-[#0166FF] cursor-pointer w-1/2  flex flex-row h-screen text-white gap-3 items-center justify-center select-none"
         >
           <div>
             <img className="w-[120px]" src="/business.png" />
